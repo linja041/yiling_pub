@@ -142,7 +142,7 @@ public class DevManager {
                     stopScan();
                     System.out.println("device.getAddress()"+device.getAddress());
                     System.out.println("device.rssi"+device.rssi);
-                    Map<String, Object> map = new HashMap<>();
+                    HashMap<String, Object> map = new HashMap<>();
                     map.put("address", device.getAddress());
                     map.put("rssi",device.rssi);
                     map.put("name",device.getName());

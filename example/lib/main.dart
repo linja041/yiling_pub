@@ -15,10 +15,33 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
 
   @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
+        body: Test(),
+      ),
+    );
+  }
+}
+
+class Test extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return TestState();
+  }
+
+}
+
+class TestState extends State<Test>{
+
+  @override
   void initState() {
     super.initState();
     yl.responseFromScan.listen((data){
-      print("responseFromScan=====1"+data.toString());
+      print("responseFromScan=====1"+data.address);
     });
   }
 
@@ -30,26 +53,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: GestureDetector(
-            onTap: startScan,
-            child: Container(
-              width: 150,
-              height: 75,
-              child: Center(
-                child: Text(
-                  "开始扫描",
-                ),
-              ),
-            ),
-          ),
+    // TODO: implement build
+    return Container(
+      child: Center(
+        child: GestureDetector(
+          onTap: startScan,
+          child: Text("开始扫描"),
         ),
       ),
     );
   }
+
 }

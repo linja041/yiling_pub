@@ -1,7 +1,5 @@
 package idris.com.yiling_plugin;
 
-import com.inuker.bluetooth.library.BluetoothClientImpl;
-
 import idris.com.yiling_plugin.handler.YiLingHandler;
 import idris.com.yiling_plugin.handler.YiLingRequestHandler;
 import idris.com.yiling_plugin.handler.YiLingResponseHandler;

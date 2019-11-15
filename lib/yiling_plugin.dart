@@ -27,6 +27,7 @@ Stream<ScanResult> get responseFromScan => _scanResultController.stream;
 
 Future<dynamic> _handler(MethodCall methodCall) {
   if ("sendScanResult" == methodCall.method) {
+    print("``````````````````````````````````````");
     _scanResultController
         .add(ScanResult.formMap(methodCall.arguments));
   }

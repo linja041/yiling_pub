@@ -5,7 +5,7 @@ class ScanResult {
   //蓝牙地址
   final String address;
   //信号
-  final String rssi;
+  final int rssi;
   //设备名称？
   final String name;
 

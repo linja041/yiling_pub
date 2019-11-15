@@ -1,6 +1,6 @@
 package idris.com.yiling_plugin.handler;
 
-import java.util.Map;
+import java.util.HashMap;
 
 import io.flutter.plugin.common.MethodChannel;
 
@@ -11,7 +11,7 @@ public class YiLingResponseHandler {
         YiLingResponseHandler.channel = channel;
     }
 
-    public static void sendScanResult(Map<String,Object> result){
+    public static void sendScanResult(HashMap<String,Object> result){
         channel.invokeMethod("sendScanResult",result);
     }
 }
