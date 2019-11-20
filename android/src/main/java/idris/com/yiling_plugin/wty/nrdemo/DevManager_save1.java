@@ -1,8 +1,5 @@
 package idris.com.yiling_plugin.wty.nrdemo;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,8 +16,9 @@ import com.inuker.bluetooth.library.search.SearchRequest;
 import com.inuker.bluetooth.library.search.SearchResult;
 import com.inuker.bluetooth.library.search.response.SearchResponse;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -56,11 +54,9 @@ import static com.inuker.bluetooth.library.Constants.STATUS_CONNECTED;
  * Created by Benefm on 2017/6/7 0007.
  */
 
-public class DevManager {
+public class DevManager_save1 {
 
-    private static DevManager DevManager;
-    private Context context;
-    private static Activity mActivity;
+    private static DevManager_save1 devManager;
     public List<SearchResult> mSearchDevices = new ArrayList<>();
 //    private  SearchResponse
 
@@ -79,6 +75,7 @@ public class DevManager {
                     connState.put(mac1, false);
                     deviceConnState.connState = 1;
                 }
+                EventBus.getDefault().post(deviceConnState);
             }
 
 
@@ -86,19 +83,16 @@ public class DevManager {
     };
 
 
-    private DevManager() {
+    private DevManager_save1() {
 
     }
 
-    public static void getActivity(Activity activity) {
-        mActivity = activity;
-    }
 
-    public static DevManager getInstance() {
-        if (DevManager == null) {
-            synchronized (DevManager.class) {
-                if (DevManager == null) {
-                    DevManager = new DevManager();
+    public static DevManager_save1 getInstance() {
+        if (devManager == null) {
+            synchronized (DevManager_save1.class) {
+                if (devManager == null) {
+                    devManager = new DevManager_save1();
 
                 }
             }
@@ -114,17 +108,20 @@ public class DevManager {
                         deviceConnState.state = false;
                     }
 
+                    EventBus.getDefault().post(deviceConnState);
 
                 }
             });
 
 
         }
-        return DevManager;
+        return devManager;
     }
 
 
     public synchronized void startScan() {
+
+
         mSearchDevices.clear();
         SearchRequest request = new SearchRequest.Builder()
                 .searchBluetoothLeDevice(15 * 1000, 1).build();
@@ -134,43 +131,34 @@ public class DevManager {
             public void onSearchStarted() {
 
             }
+
             @Override
             public void onDeviceFounded(SearchResult device) {
 
                 if (mSearchDevices.size() == 0 && device != null && !TextUtils.isEmpty(device.getName()) && device.getName().startsWith("LR")) {//ECG
                     mSearchDevices.add(device);
                     stopScan();
-                    DeviceScannState deviceScannState = new DeviceScannState();
-                    deviceScannState.mac = device.getAddress();
-                    bindMac = device.getAddress();
-                    deviceScannState.scannState = 2;
-
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("address", device.getAddress());
                     map.put("rssi",device.rssi);
                     map.put("name",device.getName());
+
+//                    DeviceScannState deviceScannState = new DeviceScannState();
+//                    deviceScannState.mac = device.getAddress();
+//                    bindMac = device.getAddress();
+//                    deviceScannState.scannState = 2;
+//                    EventBus.getDefault().post(deviceScannState);
+
+                    if (DevManager_save1.getInstance().mSearchDevices != null && DevManager_save1.getInstance().mSearchDevices.size() > 0) {
+                        System.out.println("--------------------->找到设备[" + device.getAddress() + "],正在尝试连接...<---------------------");
+                        DevManager_save1.getInstance().connectDeviceWithReg(device.getAddress());
+                    }
+
                     YiLingResponseHandler.sendScanResult(map);
 
-                    if (DevManager.getInstance().mSearchDevices != null && DevManager.getInstance().mSearchDevices.size() > 0) {
-                        System.out.println("--------------------->找到设备[" + device.getAddress() + "],正在尝试连接...<---------------------");
-                        DevManager.getInstance().connectDeviceWithReg(device.getAddress());
-
-                        System.out.println("------------------>开始连接认证<------------------");
-                        DevManager.getInstance().writeEMS(DevManager.getInstance().stopXinDian());
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                byte[] abt_cmd = new byte[4];
-                                abt_cmd[0] = (byte) 0xFD;
-                                abt_cmd[1] = (byte) 0xF0;
-                                abt_cmd[2] = (byte) 0x00;
-                                abt_cmd[3] = (byte) 0x7E;
-                                DevManager.getInstance().writeEMS(abt_cmd);
-
-                            }
-                        }, 1000);
-                    }
                 }
+
+
             }
 
             @Override
@@ -178,7 +166,10 @@ public class DevManager {
                 if (mSearchDevices != null && mSearchDevices.size() == 0) {
                     DeviceScannState deviceConnState = new DeviceScannState();
                     deviceConnState.scannState = 1;
+                    EventBus.getDefault().post(deviceConnState);
                 }
+
+
             }
 
             @Override
@@ -187,7 +178,9 @@ public class DevManager {
                     DeviceScannState deviceConnState = new DeviceScannState();
                     deviceConnState.scannState = 1;
                     deviceConnState.mac = bindMac;
+                    EventBus.getDefault().post(deviceConnState);
                 }*/
+
             }
         });
 
@@ -271,59 +264,42 @@ public class DevManager {
 
 
                                                     if (onePack.length > 2 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xf1) {
-                                                        DevManager.getInstance().writeEMS(sendAuthBT(onePack));
+                                                        DevManager_save1.getInstance().writeEMS(sendAuthBT(onePack));
                                                     }
                                                     if (onePack.length > 2 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xf3) {
+                                                        EventBus.getDefault().post(new AuSucc());
                                                     }
                                                     if (onePack.length > 2 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xd6) {
                                                         Log.e("cunka", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         CKSucc2 ckSucc = new CKSucc2();
                                                         ckSucc.code = onePack[2];
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
 
                                                     if (onePack.length > 2 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xd8) {
                                                         Log.e("cunka", "onNotify: " + ByteUtils.toHexString(onePack, " "));
-                                                        final CKSucc1 ckSucc = new CKSucc1();
+                                                        CKSucc1 ckSucc = new CKSucc1();
                                                         ckSucc.size =bytesToInt(onePack,2);
-                                                        System.out.println("------------------>"+"储存卡剩余空间"+ckSucc.size+"<------------------");
-                                                        mActivity.runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                YiLingResponseHandler.sendTFResult(ckSucc.size);
-                                                            }
-                                                        });
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
                                                     if (onePack.length > 2 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xd2) {
                                                         Log.e("cunka", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         CKSucc ckSucc = new CKSucc();
                                                         ckSucc.code = onePack[2];
-                                                        //存卡
-                                                        if(ckSucc.code == 0){
-                                                            YiLingResponseHandler.cunkaResult("success");
-                                                        }else{
-                                                            YiLingResponseHandler.cunkaResult("文件名已存在或命令响应错误");
-                                                        }
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
 
                                                     if (onePack.length > 2 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xc3) {
                                                         Log.e("dianliang", "onNotify: " + ByteUtils.toHexString(onePack, " "));
-                                                        final Dianliang ckSucc = new Dianliang();
+                                                        Dianliang ckSucc = new Dianliang();
                                                         float a = DataTreater.byteToShort(onePack[4], onePack[3]) / 100.0f;
                                                         ckSucc.code = (float) (Math.round(a * 100) / 100.0);
-
-                                                        mActivity.runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            /**
-                                                             * *******************************************
-                                                             */
-                                                            public void run() {
-                                                                YiLingResponseHandler.sendBtResult(ckSucc.code);
-                                                            }
-                                                        });
-                                                        System.out.println("-------------->电量：" + ckSucc.code + "<--------------");
+                                                        System.out.println("------------------>电量：" + ckSucc.code + "<------------------");
+                                                        EventBus.getDefault().post(ckSucc.code);
+                                                        YiLingResponseHandler.sendBtResult(ckSucc.code);
 
                                                     }
                                                     if (onePack.length > 2 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xc1) {
@@ -335,20 +311,15 @@ public class DevManager {
                                                         ckSucc.h = onePack[6] & 0xFF;
                                                         ckSucc.m = onePack[7] & 0xFF;
                                                         ckSucc.s = onePack[8] & 0xFF;
-                                                        final String time = ckSucc.y + "年" + ckSucc.mm + "月" + ckSucc.d + "日" + ckSucc.h + "时" + ckSucc.m + "分" + ckSucc.s + "秒";
+                                                        EventBus.getDefault().post(ckSucc);
 
-                                                        mActivity.runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                YiLingResponseHandler.sendRTCResult(time);
-                                                            }
-                                                        });
                                                     }
 
                                                     if (onePack.length > 3 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xa7) {
                                                         Log.e("cun", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         WifiRes3 ckSucc = new WifiRes3();
                                                         ckSucc.state = onePack[2];
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
 
@@ -356,12 +327,14 @@ public class DevManager {
                                                         Log.e("cun", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         WifiRes4 ckSucc = new WifiRes4();
                                                         ckSucc.state = onePack[2];
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
                                                     if (onePack.length > 3 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xaf) {
                                                         Log.e("cun", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         CunkRes1 ckSucc = new CunkRes1();
                                                         ckSucc.state = onePack[2];
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
 
@@ -369,6 +342,7 @@ public class DevManager {
                                                         Log.e("cun", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         CunkRes ckSucc = new CunkRes();
                                                         ckSucc.state = onePack[2];
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
 
@@ -376,12 +350,14 @@ public class DevManager {
                                                         Log.e("wifi", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         WifiRes ckSucc = new WifiRes();
                                                         ckSucc.state = onePack[2];
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
                                                     if (onePack.length > 3 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xa3) {
                                                         Log.e("wifi", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         WifiRes1 ckSucc = new WifiRes1();
                                                         ckSucc.state = onePack[2];
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
 
@@ -389,6 +365,7 @@ public class DevManager {
                                                         Log.e("wifi", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         WifiRes2 ckSucc = new WifiRes2();
                                                         ckSucc.state = onePack[2];
+                                                        EventBus.getDefault().post(ckSucc);
 
                                                     }
 
@@ -459,33 +436,8 @@ public class DevManager {
                                                             dataEvent.isNormal = true;
                                                         }
 
-                                                        final HashMap<String, Object> map = new HashMap<>();
 
-                                                        List list = new ArrayList<>(Arrays.asList(dataEvent.data1));
-                                                        System.out.println("----------->dataEvent.data1:" + toList(dataEvent.data1) + "<------------");
-                                                        map.put("data1", toList(dataEvent.data1));
-                                                        map.put("data2", toList(dataEvent.data2));
-                                                        map.put("data11", toList(dataEvent.data11));
-                                                        map.put("data12", toList(dataEvent.data12));
-                                                        map.put("data13", toList(dataEvent.data13));
-                                                        map.put("data14", toList(dataEvent.data14));
-                                                        map.put("data15", toList(dataEvent.data15));
-                                                        map.put("data16", toList(dataEvent.data16));
-                                                        map.put("isTuo", dataEvent.isTuo);
-                                                        map.put("isNormal",dataEvent.isNormal);
-                                                        map.put("hr", dataEvent.hr);
-
-                                                        System.out.println(map.toString());
-                                                        mActivity.runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            /**
-                                                             * *******************************************
-                                                             */
-                                                            public void run() {
-                                                                YiLingResponseHandler.startXindian(map);
-                                                            }
-                                                        });
-
+                                                        EventBus.getDefault().post(dataEvent);
                                                     }
 
 
@@ -536,6 +488,7 @@ public class DevManager {
                             }
                         }
                     });
+                    System.out.println("--------------->Request success<--------------");
                 }
 
             }
@@ -682,6 +635,7 @@ public class DevManager {
         xinDian_end[2] = (byte) 0x00;
         xinDian_end[3] = Crc7Chksum(xinDian_end, 4);
 
+        System.out.println("getBtgetBtgetBtgetBtgetBtgetBtgetBtgetBtgetBtgetBtgetBt");
         return xinDian_end;
     }
 
@@ -869,6 +823,7 @@ public class DevManager {
         DeviceConnState deviceConnState = new DeviceConnState();
         deviceConnState.mac = mac;
         deviceConnState.connState = 1;
+        EventBus.getDefault().post(deviceConnState);
     }
 
     public boolean getConnStateByMac() {
@@ -890,20 +845,20 @@ public class DevManager {
         }
         int one = 200;
         if (data.length <= one) {
-            DevManager.getInstance().write(bindMac, data);
+            DevManager_save1.getInstance().write(bindMac, data);
         } else {
             int count = data.length / one;
             int resume = data.length % one;
             for (int i = 0; i < count; i++) {
                 byte[] head = new byte[one];
                 System.arraycopy(data, i * one, head, 0, one);
-                DevManager.getInstance().write(bindMac, head);
+                DevManager_save1.getInstance().write(bindMac, head);
                 SystemClock.sleep(100);
             }
             if (resume != 0) {
                 byte[] head = new byte[resume];
                 System.arraycopy(data, count * one, head, 0, resume);
-                DevManager.getInstance().write(bindMac, head);
+                DevManager_save1.getInstance().write(bindMac, head);
             }
         }
     }
@@ -922,12 +877,5 @@ public class DevManager {
 
     }
 
-    public List<Integer> toList(int[] data){
-        List<Integer> list = new ArrayList<>();
-        for (int item : data) {
-            list.add(item);
-        }
-        return list;
-    }
 
 }

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:yiling_plugin/model/scan_result.dart';
 
+import 'model/xindian_result.dart';
+
 class YilingPlugin {
 }
 final MethodChannel _channel =
@@ -19,17 +21,79 @@ Future startScan() async {
   return result;
 }
 
+///获取电量
+Future getBt() async {
+  String result = await _channel.invokeMethod("getBt");
+  return result;
+}
+
+///获取剩余存储空间
+Future getTF() async {
+  String result = await _channel.invokeMethod("getTF");
+  return result;
+}
+
+///同步rtc
+Future syncRTC() async {
+  String result = await _channel.invokeMethod("syncRTC");
+  return result;
+}
+
+///单导展示，开始检测
+Future startXinDian() async {
+  String result = await _channel.invokeMethod("startXinDian");
+  return result;
+}
+
+///单导展示，停止检测
+Future stopXinDian() async {
+  String result = await _channel.invokeMethod("stopXinDian");
+  return result;
+}
+
 ///扫描结果
 StreamController<ScanResult> _scanResultController = new StreamController.broadcast();
 
 Stream<ScanResult> get responseFromScan => _scanResultController.stream;
 
+///电量
+StreamController<double> _btResultController = new StreamController.broadcast();
+
+Stream<double> get responseFromBt => _btResultController.stream;
+
+///储存空间
+StreamController<String> _tfResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromTF => _tfResultController.stream;
+
+///RTC
+StreamController<String> _rtcResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromRTC => _rtcResultController.stream;
+
+///心电扫描结果
+StreamController<XindianResult> _xindianResultController = new StreamController.broadcast();
+
+Stream<XindianResult> get responseFromXindian => _xindianResultController.stream;
+
 
 Future<dynamic> _handler(MethodCall methodCall) {
   if ("sendScanResult" == methodCall.method) {
-    print("``````````````````````````````````````");
     _scanResultController
         .add(ScanResult.formMap(methodCall.arguments));
+  }else if ("sendBtResult" == methodCall.method) {
+    _btResultController
+        .add(methodCall.arguments);
+  }else if ("sendTFResult" == methodCall.method) {
+    _tfResultController
+        .add(methodCall.arguments.toString());
+  }else if ("sendRTCResult" == methodCall.method) {
+    _rtcResultController
+        .add(methodCall.arguments.toString());
+  }else if ("startXinDian" == methodCall.method) {
+    _xindianResultController
+        .add(XindianResult.formMap(methodCall.arguments));
   }
   return Future.value(true);
+
 }

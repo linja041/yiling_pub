@@ -3,6 +3,7 @@ package idris.com.yiling_plugin;
 import idris.com.yiling_plugin.handler.YiLingHandler;
 import idris.com.yiling_plugin.handler.YiLingRequestHandler;
 import idris.com.yiling_plugin.handler.YiLingResponseHandler;
+import idris.com.yiling_plugin.wty.nrdemo.DevManager;
 import idris.com.yiling_plugin.wty.nrdemo.MyApplication;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -28,6 +29,9 @@ public class YilingPlugin implements MethodCallHandler {
     YiLingRequestHandler.setRegistrar(registrar);
     YiLingResponseHandler.setMethodChannel(channel);
     MyApplication.setInstance(registrar);
+
+    DevManager.getActivity(registrar.activity());
+
     channel.setMethodCallHandler(new YilingPlugin(registrar, channel));
   }
 
@@ -37,7 +41,21 @@ public class YilingPlugin implements MethodCallHandler {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     }  else if (call.method.equals("startScan")) {
       YiLingHandler.startScan(call,result);
-    }else {
+    }  else if (call.method.equals("getBt")) {
+      YiLingHandler.getBt(call,result);
+    }  else if (call.method.equals("getTF")) {
+      YiLingHandler.getTF(call,result);
+    }  else if (call.method.equals("syncRTC")) {
+      YiLingHandler.syncRTC(call,result);
+    } else if (call.method.equals("startXinDian")) {
+      YiLingHandler.startXinDian(call,result);
+    } else if (call.method.equals("stopXinDian")) {
+      YiLingHandler.stopXinDian(call,result);
+    } else if (call.method.equals("startCunKa")) {
+        YiLingHandler.startCunKa(call,result);
+    } else if (call.method.equals("stopCunKa")) {
+        YiLingHandler.stopCunKa(call,result);
+    } else {
       result.notImplemented();
     }
   }
