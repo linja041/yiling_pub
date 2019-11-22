@@ -30,7 +30,6 @@ public class YiLingHandler {
 
     public static void startScan(MethodCall call, MethodChannel.Result result) {
         DevManager.getInstance().startScan();
-
         result.success("startScan success");
     }
 
