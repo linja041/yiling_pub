@@ -51,6 +51,49 @@ Future stopXinDian() async {
   return result;
 }
 
+///启动WiFi模块
+Future startWiFi() async {
+  String result = await _channel.invokeMethod("startWiFi");
+  return result;
+}
+
+///停止WiFi模块
+Future stopWiFi() async {
+  String result = await _channel.invokeMethod("stopWiFi");
+  return result;
+}
+
+///存卡
+Future startCunKa() async {
+  String result = await _channel.invokeMethod("startCunKa");
+  return result;
+}
+
+///停止存卡
+Future stopCunKa() async {
+  String result = await _channel.invokeMethod("stopCunKa");
+  return result;
+}
+
+///读卡
+Future duKa() async {
+  String result = await _channel.invokeMethod("duKa");
+  return result;
+}
+
+///读卡
+Future startPeiwang() async {
+  String result = await _channel.invokeMethod("startPeiwang");
+  return result;
+}
+
+///读卡
+Future goPeiwang() async {
+  String result = await _channel.invokeMethod("goPeiwang");
+  return result;
+}
+
+
 ///扫描结果
 StreamController<ScanResult> _scanResultController = new StreamController.broadcast();
 
@@ -76,6 +119,15 @@ StreamController<XindianResult> _xindianResultController = new StreamController.
 
 Stream<XindianResult> get responseFromXindian => _xindianResultController.stream;
 
+///WiFi配置结果
+StreamController<String> _WiFiResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromWiFi => _WiFiResultController.stream;
+
+///cunka
+StreamController<String> _cunkaResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromCunka => _cunkaResultController.stream;
 
 Future<dynamic> _handler(MethodCall methodCall) {
   if ("sendScanResult" == methodCall.method) {
@@ -93,6 +145,12 @@ Future<dynamic> _handler(MethodCall methodCall) {
   }else if ("startXinDian" == methodCall.method) {
     _xindianResultController
         .add(XindianResult.formMap(methodCall.arguments));
+  }else if ("wifiResult" == methodCall.method) {
+    _WiFiResultController
+        .add(methodCall.arguments);
+  }else if ("cunkaResult" == methodCall.method) {
+    _cunkaResultController
+        .add(methodCall.arguments);
   }
   return Future.value(true);
 

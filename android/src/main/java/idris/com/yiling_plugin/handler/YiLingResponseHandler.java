@@ -55,7 +55,6 @@ public class YiLingResponseHandler {
         channel.invokeMethod("startXindian",result);
     }
 
-
     /**
      * 存卡结果
      * @param result
@@ -63,4 +62,13 @@ public class YiLingResponseHandler {
     public static void cunkaResult(String result){
         channel.invokeMethod("cunkaResult",result);
     }
+
+    /**
+     * wifi结果
+     * @param result
+     */
+    public static void wifiResult(String result){
+        channel.invokeMethod("wifiResult",result);
+    }
+
 }

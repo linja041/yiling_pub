@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LR_EST_ECG</string>
+    <string name="ssid_title">当前WiFi名称: </string>
+    <string name="bssid_title">BSSID: </string>
+    <string name="password_title">请输入WiFi密码: </string>
+    <string name="device_count_title">Device count: </string>
+    <string name="package_broadcast">Broadcast</string>
+    <string name="package_multicast">Multicast</string>
+    <string name="confirm">Confirm</string>
+    <string name="wifi_5g_message">Device dose not support 5G Wifi</string>
+    <string name="location_disable_message">Location(GPS) is disable</string>
+</resources>

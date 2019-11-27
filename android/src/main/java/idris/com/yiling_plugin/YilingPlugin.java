@@ -55,6 +55,14 @@ public class YilingPlugin implements MethodCallHandler {
         YiLingHandler.startCunKa(call,result);
     } else if (call.method.equals("stopCunKa")) {
         YiLingHandler.stopCunKa(call,result);
+    } else if (call.method.equals("startWiFi")) {
+        YiLingHandler.startWiFi(call,result);
+    } else if (call.method.equals("stopWiFi")) {
+        YiLingHandler.stopWiFi(call,result);
+    } else if (call.method.equals("startPeiwang")) {
+        YiLingHandler.startPeiwang(call,result);
+    } else if (call.method.equals("goPeiwang")) {
+        YiLingHandler.goPeiwang(call,result);
     } else {
       result.notImplemented();
     }

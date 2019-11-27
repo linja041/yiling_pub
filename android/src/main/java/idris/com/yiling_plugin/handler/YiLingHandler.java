@@ -1,7 +1,10 @@
 package idris.com.yiling_plugin.handler;
 
+import android.content.Intent;
+
 import java.util.Timer;
 
+import idris.com.yiling_plugin.activity.PeiwangActivity;
 import idris.com.yiling_plugin.wty.nrdemo.DevManager;
 import idris.com.yiling_plugin.wty.nrdemo.util.FileSave;
 import idris.com.yiling_plugin.wty.nrdemo.util.UUID8;
@@ -120,6 +123,46 @@ public class YiLingHandler {
      */
     public static void stopCunKa(MethodCall call, MethodChannel.Result result){
         DevManager.getInstance().writeEMS(DevManager.getInstance().stopXinDian());
+        result.success("success");
+    }
+
+    /**
+     * 启动WiFi模块
+     * @param call
+     * @param result
+     */
+    public static void startWiFi(MethodCall call, MethodChannel.Result result){
+        //启动WiFi模块
+        System.out.println("------------------->startWiFi on Handler startWiFi on Handler startWiFi on Handler<--------------------");
+        DevManager.getInstance().writeEMS(DevManager.getInstance().startWifi((byte) 0));
+        //设置配网模式
+        result.success("success");
+    }
+
+    /**
+     * 设置配网
+     * @param call
+     * @param result
+     */
+    public static void startPeiwang(MethodCall call, MethodChannel.Result result){
+        //设置配网模式
+        DevManager.getInstance().writeEMS(DevManager.getInstance().setWifiMode());
+        result.success("success");
+    }
+
+    public static void goPeiwang(MethodCall call ,MethodChannel.Result result){
+        Intent intent=new Intent(registrar.activity(), PeiwangActivity.class);
+        registrar.activity().startActivity(intent);
+    }
+
+    /**
+     * 停止WiFi模块
+     * @param call
+     * @param result
+     */
+    public static void stopWiFi(MethodCall call, MethodChannel.Result result){
+        DevManager.getInstance().writeEMS(DevManager.getInstance().startWifi((byte) 1));
+        result.success("success");
     }
 
     /**

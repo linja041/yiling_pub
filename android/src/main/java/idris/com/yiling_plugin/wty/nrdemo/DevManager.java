@@ -376,20 +376,80 @@ public class DevManager {
                                                         Log.e("wifi", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         WifiRes ckSucc = new WifiRes();
                                                         ckSucc.state = onePack[2];
-
+                                                        final String result;
+                                                        if (ckSucc.state == 0){
+                                                            result = "Wifi模块启动成功";
+                                                        }else{
+                                                            result = "Wifi模块启动失败";
+                                                        }
+                                                        mActivity.runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            /**
+                                                             * *******************************************
+                                                             */
+                                                            public void run() {
+                                                                YiLingResponseHandler.wifiResult(result);
+                                                            }
+                                                        });
                                                     }
+
                                                     if (onePack.length > 3 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xa3) {
                                                         Log.e("wifi", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         WifiRes1 ckSucc = new WifiRes1();
                                                         ckSucc.state = onePack[2];
-
+                                                        String result = "wifi没有连接";
+                                                        switch (ckSucc.state) {
+                                                            case 0:
+                                                                result = "wifi没有连接";
+                                                                break;
+                                                            case 1:
+                                                                result = "wifi正在连接";
+                                                                break;
+                                                            case 2:
+                                                                result = "wifi连接失败，密码错误";
+                                                                break;
+                                                            case 3:
+                                                                result = "wifi连接失败，未搜索到指定的SSID";
+                                                                break;
+                                                            case 4:
+                                                                result = "wifi连接失败";
+                                                                break;
+                                                            case 5:
+                                                                result = "wifi连接成功";
+                                                                break;
+                                                                default:break;
+                                                        }
+                                                        final String finalResult = result;
+                                                        mActivity.runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            /**
+                                                             * *******************************************
+                                                             */
+                                                            public void run() {
+                                                                YiLingResponseHandler.wifiResult(finalResult);
+                                                            }
+                                                        });
                                                     }
 
                                                     if (onePack.length > 3 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xa5) {
                                                         Log.e("wifi", "onNotify: " + ByteUtils.toHexString(onePack, " "));
                                                         WifiRes2 ckSucc = new WifiRes2();
                                                         ckSucc.state = onePack[2];
-
+                                                        final String result;
+                                                        if (ckSucc.state == 0) {
+                                                            result = "配网设置成功";
+                                                        }else{
+                                                            result = "配网设置失败";
+                                                        }
+                                                        mActivity.runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            /**
+                                                             * *******************************************
+                                                             */
+                                                            public void run() {
+                                                                YiLingResponseHandler.wifiResult(result);
+                                                            }
+                                                        });
                                                     }
 
                                                     if (onePack.length > 20 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xe2) {
