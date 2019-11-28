@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="week">
+        <item>导联：I</item>
+        <item>导联：II</item>
+        <item>导联：III</item>
+        <item>导联：aVR</item>
+        <item>导联：aVL</item>
+        <item>导联：aVF</item>
+        <item>导联：V1</item>
+        <item>导联：V2</item>
+        <item>导联：V3</item>
+        <item>导联：V4</item>
+        <item>导联：V5</item>
+        <item>导联：V6</item>
+    </string-array>
+    <string-array name="week11">
+        <item>高通：诊断0.05Hz</item>
+        <item>高通：监护0.5Hz</item>
+        <item>高通：手术1Hz</item>
+        <item>高通：心电图0.15Hz</item>
+        <item>高通：心电图0.25Hz</item>
+
+    </string-array>
+    <string-array name="week112">
+        <item>存卡选择：250hz 16bit</item>
+        <item>存卡选择：125hz 16bit</item>
+        <item>存卡选择：250hz 8bit</item>
+        <item>存卡选择：125hz 8bit</item>
+    </string-array>
+    <string-array name="week111">
+        <item>陷波：50Hz开</item>
+        <item>陷波：60Hz开</item>
+        <item>陷波：全关</item>
+
+    </string-array>
+    <string-array name="week1111">
+        <item>低通：诊断100Hz</item>
+        <item>低通：监护40/35Hz</item>
+        <item>低通：手术20/25Hz</item>
+        <item>低通：心电图75Hz</item>
+        <item>低通：心电图150Hz</item>
+
+    </string-array>
+    <string-array name="week1">
+        <item>I&#160;&#160;II&#160;&#160;III&#160;&#160;aVR&#160;&#160;aVL&#160;&#160;aVF</item>
+        <item>V1&#160;&#160;V2&#160;&#160;V3&#160;&#160;V4&#160;&#160;V5&#160;&#160;V6</item>
+    </string-array>
+</resources>

@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,7 @@ public class PeiwangActivity extends AppCompatActivity implements View.OnClickLi
     private RadioGroup mPackageModeGroup;
     private static TextView mMessageTV;
     private static Button mConfirmBtn;
+    private ImageView mGoBackBtn;
     private static ClientThread cli;
     static long count = 0;
     static long tempCount = 0;
@@ -292,6 +294,14 @@ public class PeiwangActivity extends AppCompatActivity implements View.OnClickLi
         mConfirmBtn.setEnabled(false);
         mConfirmBtn.setOnClickListener(this);
 
+        mGoBackBtn = findViewById(R.id.icon_goback);
+        mGoBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //finish 安卓 ， 返回flutter
+                finish();
+            }
+        });
 
 
         confirmBtn1 = (Button) findViewById(R.id.confirm_btn1);
