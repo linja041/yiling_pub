@@ -143,8 +143,7 @@
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="100dp"
         android:textColor="@android:color/black"/>
 
     <Button
@@ -156,7 +155,7 @@
     <Button
         android:id="@+id/confirm_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@android:color/holo_green_light"
         android:text="配网"
         android:layout_margin="16dp"/>

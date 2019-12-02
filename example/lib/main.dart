@@ -47,28 +47,36 @@ class TestState extends State<Test>{
   String wifiResult = "";
   bool xinDian = false;
   bool wifi = false;
+  bool cunka = false;
+  String cunkaResult = "";
+  List<String> ka = new List();
 
   @override
   void initState() {
     super.initState();
+    initBluetooth();
+    
     yl.responseFromScan.listen((data){
       print("responseFromScan=====>"+data.address);
       setState(() {
         mac = data.address;
       });
     });
+
     yl.responseFromBt.listen((data){
       print("getBt=====>"+data.toStringAsPrecision(3));
       setState(() {
-        ele = data.toStringAsPrecision(3)+"%";
+        ele = (data*10).toStringAsPrecision(3)+"%";
       });
     });
+
     yl.responseFromTF.listen((data){
       print("getTF=====>"+data.toString());
       setState(() {
         tf = data+"字节";
       });
     });
+
     yl.responseFromXindian.listen((data){
       print("responseFromXindian=====>" + data.data1.toString());
     });
@@ -78,11 +86,40 @@ class TestState extends State<Test>{
         rtc = data;
       });
     });
+
     yl.responseFromWiFi.listen((data){
       setState(() {
         wifiResult = data;
       });
     });
+
+    yl.responseFromCunka.listen((data){
+      setState(() {
+        cunkaResult = data;
+      });
+    });
+
+    yl.responseFromDuka.listen((data){
+      setState(() {
+        ka = data;
+      });
+    });
+  }
+
+  Future<void> initBluetooth() async {
+    try {
+      bool result = await checkBle();
+      if(result == false) {
+        var res = await yl.requestBlePermissionWay();
+        result = await checkBle();
+      }
+    } on PlatformException {
+    }
+  }
+
+  Future<bool> checkBle() async{
+    bool result = await yl.checkBlePermissionWay();
+    return result;
   }
 
   void startScan(){
@@ -168,6 +205,32 @@ class TestState extends State<Test>{
     });
   }
 
+  void stopCunka(){
+    yl.stopCunKa().then((result){
+      setState(() {
+        cunka = false;
+      });
+      showToast("stopCunka");
+    });
+  }
+
+  void startCunka(String filename,String name,int sex,int age,int mode)async{
+    setState(() {
+      cunka = true;
+    });
+    await yl.startCunKa(fileName: filename , name: name , sex: sex , age: age , mode: mode);
+    showToast("startCunka");
+  }
+
+  void duka() {
+    yl.duKa().then((value){
+      setState(() {
+        ka = value;
+      });
+    });
+    showToast("duka");
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -203,6 +266,16 @@ class TestState extends State<Test>{
                 Center(
                   child: Text(
                     "wifi: " + wifiResult??"",
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "cunka: " + cunkaResult??"",
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "卡信息: " + ka.toString()??"",
                   ),
                 ),
               ],
@@ -290,6 +363,44 @@ class TestState extends State<Test>{
                     ),
                   ),
                 ),
+
+                Container(
+                  width: 150,
+                  height: 45,
+                  margin: EdgeInsets.only(bottom: 5.0),
+                  decoration: new BoxDecoration(
+                    border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
+                    borderRadius: new BorderRadius.circular((5.0)), // 圆角
+                  ),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap:(){
+                        if(cunka){
+                          stopCunka();
+                        }else{
+                          startCunka("20191781","林骏雄",1,20,0);
+                        }
+                      },
+                      child: cunka?Text("停止存卡"):Text("开始存卡"),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 150,
+                  height: 45,
+                  margin: EdgeInsets.only(bottom: 5.0),
+                  decoration: new BoxDecoration(
+                    border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
+                    borderRadius: new BorderRadius.circular((5.0)), // 圆角
+                  ),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap:duka,
+                      child: Text("读卡"),
+                    ),
+                  ),
+                ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

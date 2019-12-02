@@ -64,8 +64,14 @@ Future stopWiFi() async {
 }
 
 ///存卡
-Future startCunKa() async {
-  String result = await _channel.invokeMethod("startCunKa");
+Future startCunKa({String fileName,String name,int sex,int age,int mode}) async {
+  String result = await _channel.invokeMethod("startCunKa",{
+    "fileName" : fileName,
+    "name" : name,
+    "sex" : sex,
+    "age" : age,
+    "mode" : mode,
+  });
   return result;
 }
 
@@ -81,15 +87,27 @@ Future duKa() async {
   return result;
 }
 
-///读卡
+///启动配网模式
 Future startPeiwang() async {
   String result = await _channel.invokeMethod("startPeiwang");
   return result;
 }
 
-///读卡
+///去配网
 Future goPeiwang() async {
   String result = await _channel.invokeMethod("goPeiwang");
+  return result;
+}
+
+///检查蓝牙权限
+Future<bool> checkBlePermissionWay() async {
+  bool result = await _channel.invokeMethod("checkBlePermissionWay", {});
+  return result;
+}
+
+///打开蓝牙权限
+Future requestBlePermissionWay() async {
+  String result = await _channel.invokeMethod("requestBlePermissionWay", {});
   return result;
 }
 
@@ -129,6 +147,11 @@ StreamController<String> _cunkaResultController = new StreamController.broadcast
 
 Stream<String> get responseFromCunka => _cunkaResultController.stream;
 
+///duka
+StreamController<List<String>> _dukaResultController = new StreamController.broadcast();
+
+Stream<List<String>> get responseFromDuka => _dukaResultController.stream;
+
 Future<dynamic> _handler(MethodCall methodCall) {
   if ("sendScanResult" == methodCall.method) {
     _scanResultController
@@ -150,6 +173,10 @@ Future<dynamic> _handler(MethodCall methodCall) {
         .add(methodCall.arguments);
   }else if ("cunkaResult" == methodCall.method) {
     _cunkaResultController
+        .add(methodCall.arguments);
+  }else if ("kaResult" == methodCall.method) {
+    print(methodCall.arguments.toString());
+    _dukaResultController
         .add(methodCall.arguments);
   }
   return Future.value(true);

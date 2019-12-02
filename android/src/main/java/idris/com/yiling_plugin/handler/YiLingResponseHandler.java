@@ -1,6 +1,7 @@
 package idris.com.yiling_plugin.handler;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.flutter.plugin.common.MethodChannel;
 
@@ -69,6 +70,16 @@ public class YiLingResponseHandler {
      */
     public static void wifiResult(String result){
         channel.invokeMethod("wifiResult",result);
+    }
+
+
+
+    /**
+     * 读卡信息
+     * @param result
+     */
+    public static void kaResult(List<String> result){
+        channel.invokeMethod("kaResult",result);
     }
 
 }

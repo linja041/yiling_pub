@@ -1,11 +1,20 @@
 package idris.com.yiling_plugin.handler;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 
 import idris.com.yiling_plugin.activity.PeiwangActivity;
 import idris.com.yiling_plugin.wty.nrdemo.DevManager;
+import idris.com.yiling_plugin.wty.nrdemo.util.ECGReportAdapter;
 import idris.com.yiling_plugin.wty.nrdemo.util.FileSave;
 import idris.com.yiling_plugin.wty.nrdemo.util.UUID8;
 import io.flutter.plugin.common.MethodCall;
@@ -104,10 +113,13 @@ public class YiLingHandler {
             if(name == null){
                 name = UUID8.getAccountIdByUUId();
             }
-            sex = (byte) call.argument("sex");
-            age  = (byte) call.argument("age");
-            mode = (byte) call.argument("mode");
-            System.out.print("-------------------->存卡信息：fileName = " + fileName + " name = " + name + " sex = " + age + " age = " + name + " mode: " + mode+"<--------------------");
+            int s = (int) call.argument("sex");
+            int a = (int) call.argument("age");
+            int m = (int) call.argument("mode");
+            sex = (byte) s;
+            age  = (byte) a;
+            mode = (byte) m;
+            System.out.print("-------------------->存卡信息：fileName = " + fileName + " name = " + name + " sex = " + sex + " age = " + age + " mode: " + mode+"<--------------------");
             byte[] data = DevManager.getInstance().startCK(fileName, name, sex, age, (byte) 0);
             DevManager.getInstance().writeEMS(data);
 
@@ -122,7 +134,7 @@ public class YiLingHandler {
      * @param result
      */
     public static void stopCunKa(MethodCall call, MethodChannel.Result result){
-        DevManager.getInstance().writeEMS(DevManager.getInstance().stopXinDian());
+        DevManager.getInstance().writeEMS(DevManager.getInstance().stopCK());
         result.success("success");
     }
 
@@ -172,7 +184,67 @@ public class YiLingHandler {
      */
     public static void duKa(MethodCall call, MethodChannel.Result result){
         final String[] daa = FileSave.getFileNameList(registrar.context());
-        System.out.print("-------------------->读卡信息 :" + daa + "<--------------------");
+        ArrayList<String> beans = null;
+        if (daa != null) {
+            beans =  new ArrayList<String> (daa);
+            System.out.print(beans.toString());
+            ECGReportAdapter reportAdapter = new ECGReportAdapter(registrar.context(), beans);
+        }
+        System.out.println("-------------------->读卡信息 :" + daa + "<--------------------");
+
+        YiLingResponseHandler.kaResult(beans);
+    }
+
+
+    //蓝牙权限申请
+    public static void checkBlePermissionWay(MethodCall call, MethodChannel.Result result) {
+        boolean isPermission = checkBlePermission(registrar.context());
+        result.success(isPermission);
+    }
+
+    public static void requestBlePermissionWay(MethodCall call, final MethodChannel.Result result) {
+        requestBlePermission(registrar.activity());
+        registrar.addRequestPermissionsResultListener(new PluginRegistry.RequestPermissionsResultListener() {
+            @Override
+            public boolean onRequestPermissionsResult(int i, String[] strings, int[] ints) {
+                if (i == 1) {
+                    registrar.activity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            result.success("success");
+                        }
+                    });
+                } else {
+                    result.success("error");
+                }
+                return false;
+            }
+        });
+    }
+
+
+
+    public static boolean checkBlePermission(Context context) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            boolean bPermission = ContextCompat.checkSelfPermission(context, "android.permission.ACCESS_COARSE_LOCATION") == 0;
+            if (bPermission) {
+                ContextCompat.checkSelfPermission(context, "android.permission.WRITE_EXTERNAL_STORAGE");
+            }
+
+            return bPermission;
+        } else {
+            return true;
+        }
+    }
+
+    public static void requestBlePermission(Activity activity) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            boolean bPermission = checkBlePermission(activity.getApplicationContext());
+            if (!bPermission) {
+                ActivityCompat.requestPermissions(activity, new String[]{"android.permission.ACCESS_COARSE_LOCATION", "android.permission.WRITE_EXTERNAL_STORAGE"}, 1);
+            }
+        }
+
     }
 
 }

@@ -301,9 +301,19 @@ public class DevManager {
                                                         ckSucc.code = onePack[2];
                                                         //存卡
                                                         if(ckSucc.code == 0){
-                                                            YiLingResponseHandler.cunkaResult("success");
+                                                            mActivity.runOnUiThread(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    YiLingResponseHandler.cunkaResult("success");
+                                                                }
+                                                            });
                                                         }else{
-                                                            YiLingResponseHandler.cunkaResult("文件名已存在或命令响应错误");
+                                                            mActivity.runOnUiThread(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    YiLingResponseHandler.cunkaResult("文件名已存在或命令响应错误");
+                                                                }
+                                                            });
                                                         }
 
                                                     }
@@ -874,7 +884,18 @@ public class DevManager {
             xinDian_end[2 + i] = fileName.getBytes()[i];
         }
         for (int i = 0; i < 16; i++) {
-            xinDian_end[10 + i] = name.getBytes()[i];
+
+            if(name.getBytes().length < 16){
+                if(i < name.getBytes().length){
+                    xinDian_end[10 + i] = name.getBytes()[i];
+                }else{
+                    xinDian_end[ 10 + i ] = (byte) 0;
+                }
+
+            }else{
+                xinDian_end[10 + i] = name.getBytes()[i];
+            }
+//            System.out.println(xinDian_end[10+i]);
         }
 
         xinDian_end[26] = sex;

@@ -621,7 +621,7 @@ public class PeiwangActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 } else {
-                    mResultDialog.setMessage("Esptouch fail");
+                    mResultDialog.setMessage("设置失败");
                     mResultDialog.show();
                 }
 
