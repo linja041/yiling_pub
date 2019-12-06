@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#05B58D"
+        />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@android:color/holo_green_dark">
+        android:background="#05B58D">
 
         <ImageView
             android:id="@+id/icon_goback"
@@ -23,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:singleLine="true"
-            android:text="心电检测"
+            android:text="智能检测"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -32,7 +37,76 @@
             android:textColor="@android:color/white"/>
     </FrameLayout >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/iv_ava"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            app:is_circle="true"
+            android:src="@drawable/default_image"
+            app:border_color="#FFFFFF"
+            app:border_width="1dp"
+            />
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_div_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="设备名称:"
+                android:textSize="16sp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/tv_doc_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_marginTop="5dp"
+                android:text="医生:"
+                android:textSize="14sp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/darker_gray"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_connect_doc"
+            android:layout_width="125dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/shape"
+            android:drawableLeft="@drawable/ic_contact"
+            android:layout_marginRight="15dp"
+            android:text="联系医生"
+            android:textColor="@android:color/white"/>
+    </LinearLayout >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F8F8"/>
+
     <RelativeLayout
+        android:id="@+id/rl_tips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -133,6 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="I"
                 android:textColor="#000"
                 android:visibility="invisible"
@@ -143,6 +218,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="II"
                 android:textColor="#000"
                 android:visibility="invisible"
@@ -153,6 +229,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="III"
                 android:textColor="#000"
                 android:visibility="invisible"
@@ -163,6 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="aVR"
                 android:textColor="#000"
                 android:visibility="invisible"
@@ -173,6 +251,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="aVL"
                 android:textColor="#000"
                 android:visibility="invisible"
@@ -183,13 +262,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="aVF"
                 android:textColor="#000"
                 android:visibility="invisible"
                 />
         </LinearLayout>
 
-        <com.wty.nrdemo.EcgSurfaceView
+        <idris.com.yiling_plugin.wty.nrdemo.EcgSurfaceView
             android:id="@+id/sf"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -200,34 +280,35 @@
 
     <Spinner
         android:id="@+id/button1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:entries="@array/week1"
-        android:gravity="center"
-        android:visibility="invisible"/>
+        android:gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
-
+        android:gravity="center"
         android:layout_marginRight="16dp">
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/holo_green_light"
-            android:text="开始"/>
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:background="@drawable/shape"
+            android:textColor="@android:color/white"
+            android:text="开始检测"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -45,6 +45,15 @@
         <activity android:name="idris.com.yiling_plugin.activity.PeiwangActivity">
 
         </activity>
+        <activity android:name="idris.com.yiling_plugin.activity.DKListActivity">
+
+        </activity>
+        <activity android:name="idris.com.yiling_plugin.activity.ShowXinDianActivity">
+
+        </activity>
+        <activity android:name="idris.com.yiling_plugin.activity.ViewDKAct">
+
+        </activity>
     </application>
 
 </manifest>

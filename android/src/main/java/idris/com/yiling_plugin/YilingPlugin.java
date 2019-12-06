@@ -49,6 +49,8 @@ public class YilingPlugin implements MethodCallHandler {
       YiLingHandler.syncRTC(call,result);
     } else if (call.method.equals("startXinDian")) {
       YiLingHandler.startXinDian(call,result);
+    } else if (call.method.equals("goXinDian")) {
+      YiLingHandler.goXinDian(call,result);
     } else if (call.method.equals("stopXinDian")) {
       YiLingHandler.stopXinDian(call,result);
     } else if (call.method.equals("startCunKa")) {
@@ -67,8 +69,20 @@ public class YilingPlugin implements MethodCallHandler {
       YiLingHandler.checkBlePermissionWay(call,result);
     } else if (call.method.equals("requestBlePermissionWay")) {
       YiLingHandler.requestBlePermissionWay(call,result);
+    } else if (call.method.equals("checkWritePermissionWay")) {
+      YiLingHandler.checkWritePermissionWay(call,result);
+    } else if (call.method.equals("requestWritePermissionWay")) {
+      YiLingHandler.requestWritePermissionWay(call,result);
+    } else if (call.method.equals("checkReadPermissionWay")) {
+        YiLingHandler.checkReadPermissionWay(call,result);
+    } else if (call.method.equals("requestReadPermissionWay")) {
+      YiLingHandler.requestReadPermissionWay(call,result);
     } else if (call.method.equals("duKa")) {
-        YiLingHandler.duKa(call,result);
+      YiLingHandler.duKa(call,result);
+    } else if (call.method.equals("duKaAndIntent")) {
+      YiLingHandler.duKaAndIntent(call,result);
+    } else if (call.method.equals("duKaAndIntent2")) {
+        YiLingHandler.duKaAndIntent2(call,result);
     } else {
       result.notImplemented();
     }

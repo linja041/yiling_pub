@@ -55,7 +55,8 @@ class TestState extends State<Test>{
   void initState() {
     super.initState();
     initBluetooth();
-    
+//    initWrite();
+//    initRead();
     yl.responseFromScan.listen((data){
       print("responseFromScan=====>"+data.address);
       setState(() {
@@ -101,8 +102,14 @@ class TestState extends State<Test>{
 
     yl.responseFromDuka.listen((data){
       setState(() {
-        ka = data;
+        ka = data.ka;
       });
+    });
+
+    yl.responseFromGoLXYS.listen((data){
+      if(data == "gotoLXYS"){
+        showToast(data);
+      }
     });
   }
 
@@ -119,6 +126,38 @@ class TestState extends State<Test>{
 
   Future<bool> checkBle() async{
     bool result = await yl.checkBlePermissionWay();
+    return result;
+  }
+
+  Future<void> initWrite() async {
+    try {
+      bool result = await checkWrite();
+      if(result == false) {
+        var res = await yl.requestWritePermissionWay();
+        result = await checkWrite();
+      }
+    } on PlatformException {
+    }
+  }
+
+  Future<bool> checkWrite() async{
+    bool result = await yl.checkWritePermissionWay();
+    return result;
+  }
+
+  Future<void> initRead() async {
+    try {
+      bool result = await checkRead();
+      if(result == false) {
+        var res = await yl.requestReadPermissionWay();
+        result = await checkRead();
+      }
+    } on PlatformException {
+    }
+  }
+
+  Future<bool> checkRead() async{
+    bool result = await yl.checkReadPermissionWay();
     return result;
   }
 
@@ -170,6 +209,19 @@ class TestState extends State<Test>{
     });
   }
 
+  void goXinDian({String filename,String name,int sex,int age,int mode,String docName,String divName,String ava}){
+    yl.goXinDian(fileName: filename ,
+        name: name ,
+        sex: sex ,
+        age: age ,
+        mode: mode ,
+        docName: docName ,
+        divName: divName,
+        ava: ava,
+    ).then((result){
+    });
+  }
+
   void startWiFi(){
     setState(() {
       wifi = true;
@@ -214,9 +266,11 @@ class TestState extends State<Test>{
     });
   }
 
+  int fileName = 20191203;
   void startCunka(String filename,String name,int sex,int age,int mode)async{
     setState(() {
       cunka = true;
+      fileName++;
     });
     await yl.startCunKa(fileName: filename , name: name , sex: sex , age: age , mode: mode);
     showToast("startCunka");
@@ -224,18 +278,29 @@ class TestState extends State<Test>{
 
   void duka() {
     yl.duKa().then((value){
-      setState(() {
-        ka = value;
-      });
+    });
+    showToast("duka");
+  }
+
+  void duKaAndIntent() {
+    yl.duKaAndIntent(position: 1).then((value){
+    });
+    showToast("duka");
+  }
+
+
+  void duKaAndIntent2() {
+    yl.duKaAndIntent2(position: 6).then((value){
     });
     showToast("duka");
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
-      child:Column(
+      width: double.maxFinite,
+      height: double.maxFinite,
+      child:  Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -245,7 +310,7 @@ class TestState extends State<Test>{
               children: <Widget>[
                 Center(
                   child: Text(
-                    "已找到设备：" + mac
+                      "已找到设备：" + mac
                   ),
                 ),
                 Center(
@@ -260,7 +325,7 @@ class TestState extends State<Test>{
                 ),
                 Center(
                   child: Text(
-                      "RTC: " + rtc??"",
+                    "RTC: " + rtc??"",
                   ),
                 ),
                 Center(
@@ -283,7 +348,7 @@ class TestState extends State<Test>{
           ),
           Expanded(
             flex: 1,
-            child: Column(
+            child: ListView(
               children: <Widget>[
                 Container(
                   width: 150,
@@ -312,7 +377,17 @@ class TestState extends State<Test>{
                       ),
                       child: Center(
                         child: GestureDetector(
-                          onTap: getBt,
+                          onTap: (){
+                              goXinDian(
+                                  filename:"20191222",
+                                  name:"林骏雄",
+                                  sex:1,
+                                  age:20,
+                                  mode:0,
+                                  docName:"林医生",
+                                  divName:"8848",
+                                  ava:"http://47.112.202.101/upload/image/201912/8ac4c536-6e47-4bd6-b2db-ee0fa8abb1c0.jpg");
+                            },
                           child: Text("获取电量"),
                         ),
                       ),
@@ -378,7 +453,7 @@ class TestState extends State<Test>{
                         if(cunka){
                           stopCunka();
                         }else{
-                          startCunka("20191781","林骏雄",1,20,0);
+                          startCunka("20191256","林骏雄",1,20,0);
                         }
                       },
                       child: cunka?Text("停止存卡"):Text("开始存卡"),
@@ -395,7 +470,7 @@ class TestState extends State<Test>{
                   ),
                   child: Center(
                     child: GestureDetector(
-                      onTap:duka,
+                      onTap:duKaAndIntent2,
                       child: Text("读卡"),
                     ),
                   ),
@@ -448,6 +523,21 @@ class TestState extends State<Test>{
                     child: GestureDetector(
                       onTap: goPeiwang,
                       child: Text("去配网"),
+                    ),
+                  ),
+                ),
+
+                Container(
+                  height: 45,
+                  margin: EdgeInsets.only(bottom: 5.0,right: 10.0),
+                  decoration: new BoxDecoration(
+                    border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
+                    borderRadius: new BorderRadius.circular((5.0)), // 圆角
+                  ),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: duKaAndIntent,
+                      child: Text("quduka"),
                     ),
                   ),
                 ),

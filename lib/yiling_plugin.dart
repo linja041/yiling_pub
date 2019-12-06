@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:yiling_plugin/model/ka_result.dart';
 import 'package:yiling_plugin/model/scan_result.dart';
 
 import 'model/xindian_result.dart';
@@ -42,6 +43,21 @@ Future syncRTC() async {
 ///单导展示，开始检测
 Future startXinDian() async {
   String result = await _channel.invokeMethod("startXinDian");
+  return result;
+}
+
+///展示
+Future goXinDian({String fileName,String name,int sex,int age,int mode,String docName,String divName,String ava}) async {
+  String result = await _channel.invokeMethod("goXinDian",{
+    "fileName" : fileName,
+    "name" : name,
+    "sex" : sex,
+    "age" : age,
+    "mode" : mode,
+    "docName" : docName,
+    "divName" : divName,
+    "ava" : ava,
+  });
   return result;
 }
 
@@ -99,6 +115,22 @@ Future goPeiwang() async {
   return result;
 }
 
+///去读卡
+Future duKaAndIntent({int position}) async {
+  String result = await _channel.invokeMethod("duKaAndIntent",{
+    "position" : position,
+  });
+  return result;
+}
+
+///去读卡
+Future duKaAndIntent2({int position}) async {
+  String result = await _channel.invokeMethod("duKaAndIntent2",{
+    "position" : position,
+  });
+  return result;
+}
+
 ///检查蓝牙权限
 Future<bool> checkBlePermissionWay() async {
   bool result = await _channel.invokeMethod("checkBlePermissionWay", {});
@@ -111,6 +143,29 @@ Future requestBlePermissionWay() async {
   return result;
 }
 
+///检查读写权限
+Future<bool> checkWritePermissionWay() async {
+  bool result = await _channel.invokeMethod("checkWritePermissionWay", {});
+  return result;
+}
+
+///打开读写权限
+Future requestWritePermissionWay() async {
+  String result = await _channel.invokeMethod("requestWritePermissionWay", {});
+  return result;
+}
+
+///检查读写权限
+Future<bool> checkReadPermissionWay() async {
+  bool result = await _channel.invokeMethod("checkReadPermissionWay", {});
+  return result;
+}
+
+///打开读写权限
+Future requestReadPermissionWay() async {
+  String result = await _channel.invokeMethod("requestReadPermissionWay", {});
+  return result;
+}
 
 ///扫描结果
 StreamController<ScanResult> _scanResultController = new StreamController.broadcast();
@@ -148,9 +203,14 @@ StreamController<String> _cunkaResultController = new StreamController.broadcast
 Stream<String> get responseFromCunka => _cunkaResultController.stream;
 
 ///duka
-StreamController<List<String>> _dukaResultController = new StreamController.broadcast();
+StreamController<kaResult> _dukaResultController = new StreamController.broadcast();
 
-Stream<List<String>> get responseFromDuka => _dukaResultController.stream;
+Stream<kaResult> get responseFromDuka => _dukaResultController.stream;
+
+///跳转联系医生
+StreamController<String> _goLXYSResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromGoLXYS => _goLXYSResultController.stream;
 
 Future<dynamic> _handler(MethodCall methodCall) {
   if ("sendScanResult" == methodCall.method) {
@@ -175,8 +235,10 @@ Future<dynamic> _handler(MethodCall methodCall) {
     _cunkaResultController
         .add(methodCall.arguments);
   }else if ("kaResult" == methodCall.method) {
-    print(methodCall.arguments.toString());
     _dukaResultController
+        .add(kaResult.fromList(methodCall.arguments));
+  }else if ("LXYSOrder" == methodCall.method) {
+    _goLXYSResultController
         .add(methodCall.arguments);
   }
   return Future.value(true);

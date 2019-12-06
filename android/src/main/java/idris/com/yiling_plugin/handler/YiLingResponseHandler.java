@@ -82,4 +82,14 @@ public class YiLingResponseHandler {
         channel.invokeMethod("kaResult",result);
     }
 
+
+
+    /**
+     * 跳转联系医生
+     * @param result
+     */
+    public static void LXYSOrder(String result){
+        channel.invokeMethod("LXYSOrder",result);
+    }
+
 }
