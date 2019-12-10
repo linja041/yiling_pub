@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.ecg.ecgalgorithm.ecglib;
 
 import org.greenrobot.eventbus.EventBus;
@@ -152,8 +153,11 @@ public class ShowXinDianActivity extends AppCompatActivity {
         mTvDivName.setText("设备名称:"+divName);
 
         mIvAva = findViewById(R.id.iv_ava);
+        RequestOptions options = new RequestOptions();
+        options.centerCrop();
         Glide.with(this)
                 .load(ava)
+                .apply(options)
                 .into(mIvAva);
 
         button2.setOnClickListener(new View.OnClickListener() {
@@ -185,64 +189,12 @@ public class ShowXinDianActivity extends AppCompatActivity {
 
                     DevManager.getInstance().writeEMS(DevManager.getInstance().startXinDian());
 
-//
 //                    p.setColor(Color.parseColor("#b3f442"));
                     ecgView.color= Color.parseColor("#eb9591");
 //                    button.setEnabled(false);
 
                     button2.setText("停止检测");
-//
-//                    button2.setText("开始");
-////                                        button.setEnabled(true);
-//                    button1.setVisibility(View.INVISIBLE);
-//                    DevManager.getInstance().writeEMS(DevManager.getInstance().stopXinDian());
-//                    DevManager.getInstance().writeEMS(DevManager.getInstance().stopCK());
-//                    ecgView.color=Color.parseColor("#09F797");
 
-//                    if (timer != null) {
-//                        timer.cancel();
-//                    }
-//                    timer = new Timer();
-//                    count = 10;
-//                    timer.schedule(new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//
-//                                    count--;
-//                                    button2.setText("停止(" + count + ")");
-//                                    if (count == 0) {
-//
-//                                        button2.setText("开始");
-////                                        button.setEnabled(true);
-//                                        button1.setVisibility(View.INVISIBLE);
-//                                        DevManager.getInstance().writeEMS(DevManager.getInstance().stopXinDian());
-//                                        DevManager.getInstance().writeEMS(DevManager.getInstance().stopCK());
-//                                        ecgView.color=Color.parseColor("#09F797");
-//                                        timer.cancel();
-//                                    }
-//
-//                                }
-//                            });
-//
-//
-//                        }
-//                    }, 1000, 1000);
-//
-//                } else {
-//                    if (timer != null) {
-//                        timer.cancel();
-//                    }
-
-//                    button2.setText("开始");
-////                    button.setEnabled(true);
-//                    button1.setVisibility(View.INVISIBLE);
-//                    DevManager.getInstance().writeEMS(DevManager.getInstance().stopXinDian());
-//                    DevManager.getInstance().writeEMS(DevManager.getInstance().stopCK());
-//                    ecgView.color=Color.parseColor("#09F797");
-//                    p.setColor();
                 } else if("停止检测".equals(button2.getText().toString())){
 //                    button1.setVisibility(View.VISIBLE);
                     tv1.setVisibility(View.VISIBLE);

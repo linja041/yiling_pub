@@ -60,7 +60,7 @@ class TestState extends State<Test>{
     yl.responseFromScan.listen((data){
       print("responseFromScan=====>"+data.address);
       setState(() {
-        mac = data.address;
+        mac = data.name;
       });
     });
 
@@ -78,8 +78,15 @@ class TestState extends State<Test>{
       });
     });
 
+    //心电数据
     yl.responseFromXindian.listen((data){
       print("responseFromXindian=====>" + data.data1.toString());
+    });
+    //跳转到联系医生监听
+    yl.responseFromGoLXYS.listen((data){
+      if(data == "gotoLXYS"){
+        showToast(data);
+      }
     });
 
     yl.responseFromRTC.listen((data){
@@ -106,11 +113,7 @@ class TestState extends State<Test>{
       });
     });
 
-    yl.responseFromGoLXYS.listen((data){
-      if(data == "gotoLXYS"){
-        showToast(data);
-      }
-    });
+
   }
 
   Future<void> initBluetooth() async {
