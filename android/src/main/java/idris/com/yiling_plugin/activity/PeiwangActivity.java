@@ -390,7 +390,7 @@ public class PeiwangActivity extends AppCompatActivity implements View.OnClickLi
                 mTask.cancelEsptouch();
                 mTask = null;
                 new AlertDialog.Builder(PeiwangActivity.this)
-                        .setMessage("Wifi disconnected or changed")
+                        .setMessage("Wifi连接断开")
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
             }

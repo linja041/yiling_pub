@@ -27,22 +27,39 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     protected Paint mPath;
     protected int mWidth, mHeight;
     protected float scale;
-    //背景画笔
+    /**
+     * 背景画笔
+     */
     protected Paint mPaint;
-    //画背景标签
+    /**
+     * 画背景标签
+     */
     protected Paint mTagPaint;
-    //画字体背景
+    /**
+     *画字体背景
+     */
     protected Paint mTextPaint;
-    //网格颜色
+
+    /**
+     *网格颜色
+     */
     protected int mGridColor = Color.parseColor("#FF9999");
-    //小网格颜色
+    /**
+     *小网格颜色
+     */
     protected int mSGridColor = Color.parseColor("#CC6699"); //FFB5C5
-    //背景颜色
+    /**
+     *背景颜色
+     */
     protected int mBackgroundColor = Color.WHITE;
-    //网格宽度
-    protected float mXGridWidth;//固定为5毫米(X轴5毫米距离像素点个数)
-    protected float mYGridWidth;//固定为5毫米(Y轴5毫米距离像素点个数)
-    //小网格的宽度
+    /**
+     *网格宽度
+     * //固定为5毫米(X轴5毫米距离像素点个数)
+     * //固定为5毫米(Y轴5毫米距离像素点个数)
+     */
+    protected float mXGridWidth;
+    protected float mYGridWidth;
+    //    //小网格的宽度
     protected int mSGridWidth = 10;
     protected boolean isTransparentModeOpen = false;
     ArrayList<Integer> data = new ArrayList<>();
