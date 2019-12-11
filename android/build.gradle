@@ -19,6 +19,7 @@ rootProject.allprojects {
     }
 }
 
+
 apply plugin: 'com.android.library'
 
 android {
@@ -40,6 +41,10 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {

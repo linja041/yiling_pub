@@ -1,5 +1,6 @@
 package idris.com.yiling_plugin.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -84,6 +85,7 @@ public class ShowXinDianActivity extends AppCompatActivity {
         StatusBarCompat.translucentStatusBar(this);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -455,71 +457,6 @@ public class ShowXinDianActivity extends AppCompatActivity {
                 data4.clear();
                 data5.clear();
 
-                       /* long st = System.currentTimeMillis();
-                        Rect rect = new Rect((int) x, 0, (int) (x + 9), height);
-                        Canvas ca = holder.lockCanvas(rect);
-                        if (ca != null) {
-                            ca.drawColor(Color.WHITE);
-                            for (int ii = 0; ii < data.size() - 1; ii++) {
-                                ca.drawLine(x, height / 12 - data.get(ii) * 0.025f, (x + 1), height / 12 - data.get(ii + 1) * 0.025f, p);
-                                ca.drawLine(x1, height / 4 - data1.get(ii) * 0.025f, (x1 + 1), height / 4 - data1.get(ii + 1) * 0.025f, p);
-                                ca.drawLine(x2, height / 12 * 5 - data2.get(ii) * 0.025f, (x2 + 1), height / 12 * 5 - data2.get(ii + 1) * 0.025f, p);
-                                ca.drawLine(x3, height / 12 * 7 - data3.get(ii) * 0.025f, (x3 + 1), height / 12 * 7 - data3.get(ii + 1) * 0.025f, p);
-                                ca.drawLine(x4, height / 4 * 3 - data4.get(ii) * 0.025f, (x4 + 1), height / 4 * 3 - data4.get(ii + 1) * 0.025f, p);
-                                ca.drawLine(x5, height / 12 * 11 - data5.get(ii) * 0.025f, (x5 + 1), height / 12 * 11 - data5.get(ii + 1) * 0.025f, p);
-                                x += 1;
-                                x1 += 1;
-                                x2 += 1;
-                                x3 += 1;
-                                x4 += 1;
-                                x5 += 1;
-
-                            }
-
-                            int tmep = data.get(1);
-                            data.clear();
-                            data.add(tmep);
-
-                            int tmep1 = data1.get(1);
-                            data1.clear();
-                            data1.add(tmep1);
-
-                            int tmep2 = data2.get(1);
-                            data2.clear();
-                            data2.add(tmep2);
-                            int tmep3 = data3.get(1);
-                            data3.clear();
-                            data3.add(tmep3);
-                            int tmep4 = data4.get(1);
-                            data4.clear();
-                            data4.add(tmep4);
-
-                            int tmep5 = data5.get(1);
-                            data5.clear();
-                            data5.add(tmep5);
-
-                            holder.unlockCanvasAndPost(ca);
-                            if (x > width) {
-                                x = 0;
-                            }
-                            if (x1 > width) {
-                                x1 = 0;
-                            }
-                            if (x2 > width) {
-                                x2 = 0;
-                            }
-                            if (x3 > width) {
-                                x3 = 0;
-                            }
-                            if (x4 > width) {
-                                x4 = 0;
-                            }
-                            if (x5 > width) {
-                                x5 = 0;
-                            }
-
-                        }
-                        long end = System.currentTimeMillis();*/
 
 
 
