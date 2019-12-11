@@ -135,6 +135,14 @@ class TestState extends State<Test>{
         ele = data;
       });
     });
+
+//连接WiFi监听
+    yl.responseFromWifiStatus.listen((data){
+      setState(() {
+        ele = data;
+      });
+    });
+
   }
 
   Future<void> initBluetooth() async {
@@ -246,6 +254,7 @@ class TestState extends State<Test>{
     });
   }
 
+  //1、WiFi模块上电
   void startWiFi(){
     setState(() {
       wifi = true;
@@ -257,22 +266,27 @@ class TestState extends State<Test>{
 
     });
   }
+  //1、设置配网模式
+  void startPeiwang(){
+    yl.startPeiwang().then((result){
 
+    });
+  }
+  //2、检查WiFi模块上电状态
   void wifiStatus(){
     yl.wiFiEle().then((result){
 
       print("wiFiEle"+result.toString());
     });
   }
-
+  //3、配置WiFi名称
   void wifiname(){
     yl.setWifiName(wifiName:"TP-LINK_9EB6").then((result){
 
       print("wifiname"+result.toString());
     });
   }
-
-
+  //4、配置WiFi密码
   void wifiPassword(){
     yl.setWifiPSW(wifiPSW:"zjhlwmj01").then((result){
 
@@ -280,11 +294,12 @@ class TestState extends State<Test>{
     });
   }
 
-
+  //5、设备连网
   void connWifi(){
     yl.connWiFi();
   }
 
+  //关闭WiFi模块
   void stopWiFi(){
     yl.stopWiFi().then((result){
       setState(() {
@@ -292,12 +307,6 @@ class TestState extends State<Test>{
       });
       showToast("stopWiFi");
       print("stopWiFi====>"+result.toString());
-
-    });
-  }
-
-  void startPeiwang(){
-    yl.startPeiwang().then((result){
 
     });
   }

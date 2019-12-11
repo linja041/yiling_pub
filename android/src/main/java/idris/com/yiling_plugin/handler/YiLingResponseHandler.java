@@ -89,11 +89,19 @@ public class YiLingResponseHandler {
     }
 
     /**
-     * wifi设置密码结果
+     * 连接wifi结果
      * @param result
      */
     public static void connWifiResult(String result){
         channel.invokeMethod("connWifiResult",result);
+    }
+
+    /**
+     * WiFi模块状态结果
+     * @param result
+     */
+    public static void WifiStatusResult(String result){
+        channel.invokeMethod("WifiStatusResult",result);
     }
 
     /**

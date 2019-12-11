@@ -235,10 +235,15 @@ StreamController<String> _SetWifiPSWResultController = new StreamController.broa
 
 Stream<String> get responseFromSetWiFiPSW => _SetWifiPSWResultController.stream;
 
-///连接WiFi密码结果
+///连接WiFi结果
 StreamController<String> _ConnWifiResultController = new StreamController.broadcast();
 
 Stream<String> get responseFromConnWifi => _ConnWifiResultController.stream;
+
+///wifi模块状态结果
+StreamController<String> _WifiStatusResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromWifiStatus => _WifiStatusResultController.stream;
 
 ///cunka
 StreamController<String> _cunkaResultController = new StreamController.broadcast();
@@ -291,6 +296,9 @@ Future<dynamic> _handler(MethodCall methodCall) {
         .add(methodCall.arguments);
   }else if ("connWifiResult" == methodCall.method) {
     _ConnWifiResultController
+        .add(methodCall.arguments);
+  }else if ("WifiStatusResult" == methodCall.method) {
+    _WifiStatusResultController
         .add(methodCall.arguments);
   }
   return Future.value(true);

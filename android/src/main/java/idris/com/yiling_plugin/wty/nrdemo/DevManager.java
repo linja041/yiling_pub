@@ -379,8 +379,17 @@ public class DevManager {
 
                                                     if (onePack.length > 3 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xb6) {
                                                         Log.e("wifi", "onNotify: " + ByteUtils.toHexString(onePack, " "));
-                                                        WifiRes3 ckSucc = new WifiRes3();
-                                                        ckSucc.state = onePack[2];
+                                                        int state = onePack[2];
+                                                        String result = "";
+                                                        if(state == 0){
+                                                            result = "wifi 模块未上电";
+                                                        }else if(state == 1){
+                                                            result = "wifi 模块上电，\n" +
+                                                                    "数据未发送。";
+                                                        }else{
+                                                            result = "wifi 数据正在发送";
+                                                        }
+                                                        YiLingResponseHandler.WifiStatusResult(result);
                                                         //EventBus.getDefault().post(ckSucc);
 
                                                     }
