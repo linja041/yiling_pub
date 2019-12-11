@@ -338,6 +338,16 @@ public class YiLingHandler {
         result.success("success");
     }
 
+    /**
+     * 配置服务器地址和端口
+     * @param call
+     * @param result
+     */
+    public static void setIp(MethodCall call, MethodChannel.Result result) {
+//        DevManager.getInstance().writeEMS(DevManager.getInstance().setIpPort());
+        result.success("success");
+    }
+
     //蓝牙权限申请
     public static void checkBlePermissionWay(MethodCall call, MethodChannel.Result result) {
         boolean isPermission = checkBlePermission(registrar.context());
