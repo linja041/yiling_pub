@@ -63,8 +63,14 @@ public class YilingPlugin implements MethodCallHandler {
         YiLingHandler.stopWiFi(call,result);
     } else if (call.method.equals("startPeiwang")) {
         YiLingHandler.startPeiwang(call,result);
-    } else if (call.method.equals("goPeiwang")) {
-        YiLingHandler.goPeiwang(call,result);
+    } else if (call.method.equals("setWiFiName")) {
+        YiLingHandler.setWiFiName(call,result);
+    } else if (call.method.equals("setWifiPSW")) {
+      YiLingHandler.setWiFiPSW(call,result);
+    } else if (call.method.equals("connWifi")) {
+      YiLingHandler.connWifi(call,result);
+    } else if (call.method.equals("wiFiEle")) {
+      YiLingHandler.wiFiEle(call,result);
     } else if (call.method.equals("checkBlePermissionWay")) {
       YiLingHandler.checkBlePermissionWay(call,result);
     } else if (call.method.equals("requestBlePermissionWay")) {

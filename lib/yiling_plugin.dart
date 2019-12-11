@@ -131,6 +131,34 @@ Future duKaAndIntent2({int position}) async {
   return result;
 }
 
+///设置WiFi名称
+Future setWifiName({String wifiName}) async {
+  String result = await _channel.invokeMethod("setWiFiName",{
+    "wifiName" : wifiName,
+  });
+  return result;
+}
+
+///设置WiFi密码
+Future setWifiPSW({String wifiPSW}) async {
+  String result = await _channel.invokeMethod("setWifiPSW",{
+    "wifiPSW" : wifiPSW,
+  });
+  return result;
+}
+
+///连接WiFi
+Future connWiFi() async {
+  String result = await _channel.invokeMethod("connWifi");
+  return result;
+}
+
+///查看WiFi模块状态
+Future wiFiEle() async {
+  String result = await _channel.invokeMethod("wiFiEle");
+  return result;
+}
+
 ///检查蓝牙权限
 Future<bool> checkBlePermissionWay() async {
   bool result = await _channel.invokeMethod("checkBlePermissionWay", {});
@@ -197,6 +225,21 @@ StreamController<String> _WiFiResultController = new StreamController.broadcast(
 
 Stream<String> get responseFromWiFi => _WiFiResultController.stream;
 
+///配置WiFi名称结果
+StreamController<String> _SetWifiNameResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromSetWiFiName => _SetWifiNameResultController.stream;
+
+///配置WiFi密码结果
+StreamController<String> _SetWifiPSWResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromSetWiFiPSW => _SetWifiPSWResultController.stream;
+
+///连接WiFi密码结果
+StreamController<String> _ConnWifiResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromConnWifi => _ConnWifiResultController.stream;
+
 ///cunka
 StreamController<String> _cunkaResultController = new StreamController.broadcast();
 
@@ -239,6 +282,15 @@ Future<dynamic> _handler(MethodCall methodCall) {
         .add(kaResult.fromList(methodCall.arguments));
   }else if ("LXYSOrder" == methodCall.method) {
     _goLXYSResultController
+        .add(methodCall.arguments);
+  }else if ("wifiSetNameResult" == methodCall.method) {
+    _SetWifiNameResultController
+        .add(methodCall.arguments);
+  }else if ("wifiSetPSWResult" == methodCall.method) {
+    _SetWifiPSWResultController
+        .add(methodCall.arguments);
+  }else if ("connWifiResult" == methodCall.method) {
+    _ConnWifiResultController
         .add(methodCall.arguments);
   }
   return Future.value(true);

@@ -45,6 +45,8 @@ class TestState extends State<Test>{
   String tf = "";
   String rtc = "";
   String wifiResult = "";
+  String name;
+  String pas;
   bool xinDian = false;
   bool wifi = false;
   bool cunka = false;
@@ -113,7 +115,26 @@ class TestState extends State<Test>{
       });
     });
 
+//设置WiFi名称监听
+    yl.responseFromSetWiFiName.listen((data){
+      setState(() {
+        name = data;
+      });
+    });
 
+//设置WiFi密码监听
+    yl.responseFromSetWiFiPSW.listen((data){
+      setState(() {
+        pas = data;
+      });
+    });
+
+//连接WiFi监听
+    yl.responseFromConnWifi.listen((data){
+      setState(() {
+        ele = data;
+      });
+    });
   }
 
   Future<void> initBluetooth() async {
@@ -237,10 +258,31 @@ class TestState extends State<Test>{
     });
   }
 
-  void goPeiwang(){
-    yl.goPeiwang().then((result){
+  void wifiStatus(){
+    yl.wiFiEle().then((result){
 
+      print("wiFiEle"+result.toString());
     });
+  }
+
+  void wifiname(){
+    yl.setWifiName(wifiName:"TP-LINK_9EB6").then((result){
+
+      print("wifiname"+result.toString());
+    });
+  }
+
+
+  void wifiPassword(){
+    yl.setWifiPSW(wifiPSW:"zjhlwmj01").then((result){
+
+      print("wifiPassword"+result.toString());
+    });
+  }
+
+
+  void connWifi(){
+    yl.connWiFi();
   }
 
   void stopWiFi(){
@@ -346,6 +388,16 @@ class TestState extends State<Test>{
                     "卡信息: " + ka.toString()??"",
                   ),
                 ),
+                Center(
+                  child: Text(
+                    "设置名称: " + name.toString()??"",
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "设置密码: " + pas.toString()??"",
+                  ),
+                ),
               ],
             ),
           ),
@@ -404,7 +456,7 @@ class TestState extends State<Test>{
                       ),
                       child: Center(
                         child: GestureDetector(
-                          onTap: getTF,
+                          onTap: wifiStatus,
                           child: Text("可用存储空间"),
                         ),
                       ),
@@ -515,20 +567,52 @@ class TestState extends State<Test>{
                   ],
                 ),
 
-                Container(
-                  height: 45,
-                  margin: EdgeInsets.only(bottom: 5.0,right: 10.0),
-                  decoration: new BoxDecoration(
-                    border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
-                    borderRadius: new BorderRadius.circular((5.0)), // 圆角
-                  ),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: goPeiwang,
-                      child: Text("去配网"),
-                    ),
-                  ),
-                ),
+               Row(
+                 children: <Widget>[
+                   Container(
+                     height: 45,
+                     margin: EdgeInsets.only(bottom: 5.0,right: 10.0),
+                     decoration: new BoxDecoration(
+                       border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
+                       borderRadius: new BorderRadius.circular((5.0)), // 圆角
+                     ),
+                     child: Center(
+                       child: GestureDetector(
+                         onTap: wifiname,
+                         child: Text("name"),
+                       ),
+                     ),
+                   ),
+                   Container(
+                     height: 45,
+                     margin: EdgeInsets.only(bottom: 5.0,right: 10.0),
+                     decoration: new BoxDecoration(
+                       border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
+                       borderRadius: new BorderRadius.circular((5.0)), // 圆角
+                     ),
+                     child: Center(
+                       child: GestureDetector(
+                         onTap: wifiPassword,
+                         child: Text("password"),
+                       ),
+                     ),
+                   ),
+                   Container(
+                     height: 45,
+                     margin: EdgeInsets.only(bottom: 5.0,right: 10.0),
+                     decoration: new BoxDecoration(
+                       border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
+                       borderRadius: new BorderRadius.circular((5.0)), // 圆角
+                     ),
+                     child: Center(
+                       child: GestureDetector(
+                         onTap: connWifi,
+                         child: Text("conn"),
+                       ),
+                     ),
+                   ),
+                 ],
+               ),
 
                 Container(
                   height: 45,

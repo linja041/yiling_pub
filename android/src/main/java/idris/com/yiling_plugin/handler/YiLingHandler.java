@@ -207,11 +207,6 @@ public class YiLingHandler {
         result.success("success");
     }
 
-    public static void goPeiwang(MethodCall call ,MethodChannel.Result result){
-        Intent intent=new Intent(registrar.activity(), PeiwangActivity.class);
-        registrar.activity().startActivity(intent);
-    }
-
     /**
      * 停止WiFi模块
      * @param call
@@ -291,6 +286,56 @@ public class YiLingHandler {
         Intent intent = new Intent(registrar.activity(), EsptouchDemoActivity.class);
         intent.putExtra("data", beans.get(position));
         registrar.activity().startActivity(intent);
+    }
+
+    /**
+     * 设置WiFi名称
+     * @param call
+     * @param result
+     */
+    public static void setWiFiName(MethodCall call, MethodChannel.Result result) {
+        String wifiName = call.argument("wifiName");
+        if(wifiName != null){
+            DevManager.getInstance().writeEMS(DevManager.getInstance().setWifiName(wifiName));
+            result.success(wifiName+" = set success");
+        }else{
+            result.success("wifiName was null");
+        }
+    }
+
+    /**
+     * 设置WiFi密码
+     * @param call
+     * @param result
+     */
+    public static void setWiFiPSW(MethodCall call, MethodChannel.Result result) {
+        String wifiPSW = call.argument("wifiPSW");
+        if(wifiPSW != null){
+            DevManager.getInstance().writeEMS(DevManager.getInstance().setWifiPSW(wifiPSW));
+            result.success(wifiPSW+" = set success");
+        }else{
+            result.success("wifiPSW was null");
+        }
+    }
+
+    /**
+     * 连接WiFi
+     * @param call
+     * @param result
+     */
+    public static void connWifi(MethodCall call, MethodChannel.Result result) {
+        DevManager.getInstance().writeEMS(DevManager.getInstance().connWifi());
+        result.success("success");
+    }
+
+    /**
+     * 查询上电
+     * @param call
+     * @param result
+     */
+    public static void wiFiEle(MethodCall call, MethodChannel.Result result) {
+        DevManager.getInstance().writeEMS(DevManager.getInstance().wifiStatus());
+        result.success("success");
     }
 
     //蓝牙权限申请

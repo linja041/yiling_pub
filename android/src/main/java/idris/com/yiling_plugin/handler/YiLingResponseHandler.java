@@ -72,7 +72,29 @@ public class YiLingResponseHandler {
         channel.invokeMethod("wifiResult",result);
     }
 
+    /**
+     * wifi设置名称结果
+     * @param result
+     */
+    public static void wifiSetNameResult(String result){
+        channel.invokeMethod("wifiSetNameResult",result);
+    }
 
+    /**
+     * wifi设置密码结果
+     * @param result
+     */
+    public static void wifiSetPSWResult(String result){
+        channel.invokeMethod("wifiSetPSWResult",result);
+    }
+
+    /**
+     * wifi设置密码结果
+     * @param result
+     */
+    public static void connWifiResult(String result){
+        channel.invokeMethod("connWifiResult",result);
+    }
 
     /**
      * 读卡信息
