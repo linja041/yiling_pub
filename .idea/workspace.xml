@@ -7,17 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a092b9d-c394-4470-8f43-29a910d9af16" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/armeabi-v7a/libflutter.so" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/libs/armeabi/libflutter.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/armeabi/libflutter.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/libs/armeabi/libnative-lib.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/armeabi/libnative-lib.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/libs/jniLibs/armeabi/libflutter.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/jniLibs/armeabi/libflutter.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/handler/YiLingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/handler/YiLingHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/libs/armeabi/libflutter.so" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/libs/armeabi/libflutter.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/libs/armeabi/libnative-lib.so" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/libs/armeabi/libnative-lib.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/libs/jniLibs/armeabi/libflutter.so" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/libs/jniLibs/armeabi/libflutter.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/armeabi/libflutter.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/jniLibs/armeabi/libflutter.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/armeabi/libnative-lib.so" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/armeabi-v7a/libnative-lib.so" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -410,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576050297834</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="duka">
+      <created>1576057910120</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1576057910120</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
