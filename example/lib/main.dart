@@ -66,6 +66,13 @@ class TestState extends State<Test>{
       });
     });
 
+    yl.responseFromDevStop.listen((data){
+//      print("responseFromScan=====>"+data.address);
+      setState(() {
+        mac = data;
+      });
+    });
+
     yl.responseFromBt.listen((data){
       print("getBt=====>"+data.toStringAsPrecision(3));
       setState(() {

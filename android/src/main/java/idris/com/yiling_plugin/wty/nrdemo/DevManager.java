@@ -80,6 +80,8 @@ public class DevManager {
                 } else {
                     connState.put(mac1, false);
                     deviceConnState.connState = 1;
+                    String result = "设备断开";
+                    YiLingResponseHandler.searchStopped(result);
                 }
                 //EventBus.getDefault().post(deviceConnState);
             }
@@ -184,6 +186,8 @@ public class DevManager {
                 if (mSearchDevices != null && mSearchDevices.size() == 0) {
                     DeviceScannState deviceConnState = new DeviceScannState();
                     deviceConnState.scannState = 1;
+                    String result = "设备断开";
+                    YiLingResponseHandler.searchStopped(result);
                     //EventBus.getDefault().post(deviceConnState);
                 }
             }
@@ -1140,6 +1144,8 @@ public class DevManager {
         DeviceConnState deviceConnState = new DeviceConnState();
         deviceConnState.mac = mac;
         deviceConnState.connState = 1;
+        String result = "设备断开";
+        YiLingResponseHandler.searchStopped(result);
     }
 
     public boolean getConnStateByMac() {

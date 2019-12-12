@@ -219,6 +219,12 @@ StreamController<ScanResult> _scanResultController = new StreamController.broadc
 
 Stream<ScanResult> get responseFromScan => _scanResultController.stream;
 
+
+///设备断开
+StreamController<String> _devStopResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromDevStop => _devStopResultController.stream;
+
 ///电量
 StreamController<double> _btResultController = new StreamController.broadcast();
 
@@ -334,6 +340,9 @@ Future<dynamic> _handler(MethodCall methodCall) {
         .add(methodCall.arguments);
   }else if ("connIpStatusResult" == methodCall.method) {
     _connIpStatusResultController
+        .add(methodCall.arguments);
+  }else if ("searchStopped" == methodCall.method) {
+    _devStopResultController
         .add(methodCall.arguments);
   }
   return Future.value(true);

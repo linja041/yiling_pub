@@ -7,7 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a092b9d-c394-4470-8f43-29a910d9af16" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/handler/YiLingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/handler/YiLingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/handler/YiLingResponseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/handler/YiLingResponseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/wty/nrdemo/DevManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/wty/nrdemo/DevManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/yiling_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/yiling_plugin.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -30,8 +33,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="143" column="7" selection-start-line="143" selection-start-column="7" selection-end-line="143" selection-end-column="7" />
+            <state relative-caret-position="271">
+              <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -88,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/yiling_plugin.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="708">
-              <caret line="335" column="33" selection-start-line="335" selection-start-column="33" selection-end-line="335" selection-end-column="33" />
+            <state relative-caret-position="-2471">
+              <caret line="225" column="13" selection-start-line="225" selection-start-column="13" selection-end-line="225" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -134,8 +137,8 @@
         <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/lib/model/ka_result.dart" />
         <option value="$PROJECT_DIR$/android/src/main/java/idris/com/yiling_plugin/handler/YiLingHandler.java" />
-        <option value="$PROJECT_DIR$/lib/yiling_plugin.dart" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
+        <option value="$PROJECT_DIR$/lib/yiling_plugin.dart" />
       </list>
     </option>
   </component>
@@ -439,11 +442,19 @@
       <option name="project" value="LOCAL" />
       <updated>1576116101808</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="duka">
+      <created>1576116821204</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1576116821204</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24360341" />
       <window_info id="Captures" order="1" side_tool="true" />
@@ -609,15 +620,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/yiling_plugin.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
-          <caret line="335" column="33" selection-start-line="335" selection-start-column="33" selection-end-line="335" selection-end-column="33" />
+        <state relative-caret-position="-2471">
+          <caret line="225" column="13" selection-start-line="225" selection-start-column="13" selection-end-line="225" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="143" column="7" selection-start-line="143" selection-start-column="7" selection-end-line="143" selection-end-column="7" />
+        <state relative-caret-position="271">
+          <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

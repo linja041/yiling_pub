@@ -17,6 +17,14 @@ public class YiLingResponseHandler {
     }
 
     /**
+     * 设备断开
+     * @param result
+     */
+    public static void searchStopped(String result){
+        channel.invokeMethod("searchStopped",result);
+    }
+
+    /**
      * 扫描结果
      * @param result
      */
