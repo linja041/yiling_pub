@@ -105,6 +105,23 @@ public class YiLingResponseHandler {
     }
 
     /**
+     * 连接服务器命令回调
+     * @param result
+     */
+    public static void connIpResult(String result){
+        channel.invokeMethod("connIpResult",result);
+    }
+
+    /**
+     * 连接服务器命令回调
+     * @param result
+     */
+    public static void connIpStatusResult(String result){
+        channel.invokeMethod("connIpStatusResult",result);
+    }
+
+
+    /**
      * 读卡信息
      * @param result
      */

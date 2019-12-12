@@ -371,8 +371,15 @@ public class DevManager {
 
                                                     if (onePack.length > 3 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xa7) {
                                                         Log.e("cun", "onNotify: " + ByteUtils.toHexString(onePack, " "));
-                                                        WifiRes3 ckSucc = new WifiRes3();
-                                                        ckSucc.state = onePack[2];
+                                                        //WifiRes3 ckSucc = new WifiRes3();
+                                                        int state = onePack[2];
+                                                        String result = "";
+                                                        if(state == 0){
+                                                            result = "连接到服务器成功";
+                                                        }else{
+                                                            result = "连接到服务器失败";
+                                                        }
+                                                        YiLingResponseHandler.connIpResult(result);
                                                         //EventBus.getDefault().post(ckSucc);
 
                                                     }
@@ -396,8 +403,15 @@ public class DevManager {
 
                                                     if (onePack.length > 3 && onePack[0] == (byte) 0xfd && onePack[1] == (byte) 0xa9) {
                                                         Log.e("cun", "onNotify: " + ByteUtils.toHexString(onePack, " "));
-                                                        WifiRes4 ckSucc = new WifiRes4();
-                                                        ckSucc.state = onePack[2];
+//                                                        WifiRes4 ckSucc = new WifiRes4();
+                                                        int state = onePack[2];
+                                                        String result;
+                                                        if (state == 0){
+                                                            result = "连接正常";
+                                                        }else{
+                                                            result = "连接异常";
+                                                        }
+                                                        YiLingResponseHandler.connIpStatusResult(result);
                                                         //EventBus.getDefault().post(ckSucc);
 
                                                     }

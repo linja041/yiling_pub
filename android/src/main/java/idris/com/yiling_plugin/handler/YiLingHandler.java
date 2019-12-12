@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Timer;
 
 import idris.com.yiling_plugin.activity.EsptouchDemoActivity;
-import idris.com.yiling_plugin.activity.PeiwangActivity;
 import idris.com.yiling_plugin.activity.ShowXinDianActivity;
 import idris.com.yiling_plugin.activity.ViewDKAct;
 import idris.com.yiling_plugin.wty.nrdemo.DevManager;
@@ -340,11 +339,28 @@ public class YiLingHandler {
 
     /**
      * 配置服务器地址和端口
+     * 需传入 ip字段1-4 和端口号
      * @param call
      * @param result
      */
     public static void setIp(MethodCall call, MethodChannel.Result result) {
-//        DevManager.getInstance().writeEMS(DevManager.getInstance().setIpPort());
+        byte ip1 = (byte) call.argument("ip1");
+        byte ip2 = (byte) call.argument("ip2");
+        byte ip3 = (byte) call.argument("ip3");
+        byte ip4 = (byte) call.argument("ip4");
+        short duankou = call.argument("duankou");
+        DevManager.getInstance().writeEMS(DevManager.getInstance().setIpPort(ip1,ip2,ip3,ip4,duankou));
+        result.success("success");
+    }
+
+
+    /**
+     * 查看与服务器的连接状态
+     * @param call
+     * @param result
+     */
+    public static void quesyIpConn(MethodCall call, MethodChannel.Result result) {
+        DevManager.getInstance().writeEMS(DevManager.getInstance().quesyIpConn());
         result.success("success");
     }
 

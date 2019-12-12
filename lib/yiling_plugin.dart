@@ -159,6 +159,25 @@ Future wiFiEle() async {
   return result;
 }
 
+///设置服务器ip地址&端口
+///需按要求传入四个ip字段+端口；
+Future setIp({int ip1,int ip2,int ip3,int ip4,int duankou}) async {
+  String result = await _channel.invokeMethod("setIp",{
+    "ip1" : ip1,
+    "ip2" : ip2,
+    "ip3" : ip3,
+    "ip4" : ip4,
+    "duankou" : duankou,
+  });
+  return result;
+}
+
+///查看与服务器的连接状态
+Future<bool> quesyIpConn() async {
+  bool result = await _channel.invokeMethod("quesyIpConn");
+  return result;
+}
+
 ///检查蓝牙权限
 Future<bool> checkBlePermissionWay() async {
   bool result = await _channel.invokeMethod("checkBlePermissionWay", {});
@@ -245,6 +264,16 @@ StreamController<String> _WifiStatusResultController = new StreamController.broa
 
 Stream<String> get responseFromWifiStatus => _WifiStatusResultController.stream;
 
+///连接服务器命令回调
+StreamController<String> _connIpResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromConnIp => _connIpResultController.stream;
+
+///连接服务器状态回调
+StreamController<String> _connIpStatusResultController = new StreamController.broadcast();
+
+Stream<String> get responseFromConnIpStatus => _connIpStatusResultController.stream;
+
 ///cunka
 StreamController<String> _cunkaResultController = new StreamController.broadcast();
 
@@ -299,6 +328,12 @@ Future<dynamic> _handler(MethodCall methodCall) {
         .add(methodCall.arguments);
   }else if ("WifiStatusResult" == methodCall.method) {
     _WifiStatusResultController
+        .add(methodCall.arguments);
+  }else if ("connIpResult" == methodCall.method) {
+    _connIpResultController
+        .add(methodCall.arguments);
+  }else if ("connIpStatusResult" == methodCall.method) {
+    _connIpStatusResultController
         .add(methodCall.arguments);
   }
   return Future.value(true);

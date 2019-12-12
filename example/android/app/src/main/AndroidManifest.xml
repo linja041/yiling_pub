@@ -42,9 +42,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="idris.com.yiling_plugin.activity.PeiwangActivity">
-
-        </activity>
         <activity android:name="idris.com.yiling_plugin.activity.DKListActivity">
 
         </activity>

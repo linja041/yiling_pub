@@ -142,7 +142,15 @@ class TestState extends State<Test>{
         ele = data;
       });
     });
+//连接服务器命令结果(成功返回“连接到服务器成功”/失败返回“连接到服务器失败”)
+    yl.responseFromConnIp.listen((data){
+      print("ConnIpResult===========" + data.toString());
+    });
 
+//与服务器连接状态(返回“连接正常”/“连接异常”)
+    yl.responseFromConnIpStatus.listen((data){
+      print("ConnIpStatusResult===========" + data.toString());
+    });
   }
 
   Future<void> initBluetooth() async {
@@ -283,14 +291,14 @@ class TestState extends State<Test>{
   void wifiname(){
     yl.setWifiName(wifiName:"TP-LINK_9EB6").then((result){
 
-      print("wifiname"+result.toString());
+      print("wifiname:   "+result.toString());
     });
   }
   //4、配置WiFi密码
   void wifiPassword(){
     yl.setWifiPSW(wifiPSW:"zjhlwmj01").then((result){
 
-      print("wifiPassword"+result.toString());
+      print("wifiPassword:   "+result.toString());
     });
   }
 
@@ -309,6 +317,16 @@ class TestState extends State<Test>{
       print("stopWiFi====>"+result.toString());
 
     });
+  }
+
+  //设置服务器端口
+  void setIp(){
+    yl.setIp(ip1: 192,ip2: 168,ip3: 0,ip4: 134,duankou: 80);
+  }
+
+  //查看与服务器的连接状态
+  void quesyIpConn(){
+    yl.quesyIpConn();
   }
 
   void stopCunka(){
@@ -617,6 +635,34 @@ class TestState extends State<Test>{
                        child: GestureDetector(
                          onTap: connWifi,
                          child: Text("conn"),
+                       ),
+                     ),
+                   ),
+                   Container(
+                     height: 45,
+                     margin: EdgeInsets.only(bottom: 5.0,right: 10.0),
+                     decoration: new BoxDecoration(
+                       border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
+                       borderRadius: new BorderRadius.circular((5.0)), // 圆角
+                     ),
+                     child: Center(
+                       child: GestureDetector(
+                         onTap: setIp,
+                         child: Text("connIp"),
+                       ),
+                     ),
+                   ),
+                   Container(
+                     height: 45,
+                     margin: EdgeInsets.only(bottom: 5.0,right: 10.0),
+                     decoration: new BoxDecoration(
+                       border: new Border.all(color: Color(0xFFFF0000), width: 2.5), // 边色与边宽度
+                       borderRadius: new BorderRadius.circular((5.0)), // 圆角
+                     ),
+                     child: Center(
+                       child: GestureDetector(
+                         onTap: quesyIpConn,
+                         child: Text("connIpStatus"),
                        ),
                      ),
                    ),
