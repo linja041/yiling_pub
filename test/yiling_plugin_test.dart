@@ -16,6 +16,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await YilingPlugin.platformVersion, '42');
+
   });
 }
