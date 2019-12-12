@@ -344,11 +344,16 @@ public class YiLingHandler {
      * @param result
      */
     public static void setIp(MethodCall call, MethodChannel.Result result) {
-        byte ip1 = (byte) call.argument("ip1");
-        byte ip2 = (byte) call.argument("ip2");
-        byte ip3 = (byte) call.argument("ip3");
-        byte ip4 = (byte) call.argument("ip4");
-        short duankou = call.argument("duankou");
+        int p1 = (int) call.argument("ip1");
+        int p2 = (int) call.argument("ip2");
+        int p3 = (int) call.argument("ip3");
+        int p4 = (int) call.argument("ip4");
+        int duan = (int) call.argument("duankou");
+        byte ip1 = (byte) p1;
+        byte ip2 = (byte) p2;
+        byte ip3 = (byte) p3;
+        byte ip4 = (byte) p4;
+        short duankou = (short) duan;
         DevManager.getInstance().writeEMS(DevManager.getInstance().setIpPort(ip1,ip2,ip3,ip4,duankou));
         result.success("success");
     }
