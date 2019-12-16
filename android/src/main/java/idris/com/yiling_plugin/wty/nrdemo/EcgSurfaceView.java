@@ -27,39 +27,22 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     protected Paint mPath;
     protected int mWidth, mHeight;
     protected float scale;
-    /**
-     * 背景画笔
-     */
+    //背景画笔
     protected Paint mPaint;
-    /**
-     * 画背景标签
-     */
+    //画背景标签
     protected Paint mTagPaint;
-    /**
-     *画字体背景
-     */
+    //画字体背景
     protected Paint mTextPaint;
-
-    /**
-     *网格颜色
-     */
+    //网格颜色
     protected int mGridColor = Color.parseColor("#FF9999");
-    /**
-     *小网格颜色
-     */
+    //小网格颜色
     protected int mSGridColor = Color.parseColor("#CC6699"); //FFB5C5
-    /**
-     *背景颜色
-     */
+    //背景颜色
     protected int mBackgroundColor = Color.WHITE;
-    /**
-     *网格宽度
-     * //固定为5毫米(X轴5毫米距离像素点个数)
-     * //固定为5毫米(Y轴5毫米距离像素点个数)
-     */
-    protected float mXGridWidth;
-    protected float mYGridWidth;
-    //    //小网格的宽度
+    //网格宽度
+    protected float mXGridWidth;//固定为5毫米(X轴5毫米距离像素点个数)
+    protected float mYGridWidth;//固定为5毫米(Y轴5毫米距离像素点个数)
+    //小网格的宽度
     protected int mSGridWidth = 10;
     protected boolean isTransparentModeOpen = false;
     ArrayList<Integer> data = new ArrayList<>();
@@ -96,7 +79,7 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
 
     public String labelText = "I";
 
-    public int color = Color.parseColor("#09F797");
+    public int color =Color.parseColor("#09F797");
     public EcgSurfaceView(Context context) {
         super(context);
         this.context = context;
@@ -217,21 +200,6 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     int dis = 0;
-
-   /* @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-
-        int height = waveSize * waveHeight
-                + (waveSize - 1) * waveMargin;
-
-        setMeasuredDimension(width, height - dis);
-
-    }*/
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -354,75 +322,6 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
             return;
         }
         canvas.drawColor(mBackgroundColor);
-//        //画小网格
-//
-//        //竖线个数
-//        int vSNum = mWidth / mSGridWidth;
-//
-//        //横线个数
-//        int hSNum = mHeight / mSGridWidth;
-//        mPaint.setColor(mSGridColor);
-//        mPaint.setStrokeWidth(2);
-//        //画竖线
-//        for (int i = 0; i < vSNum + 1; i++) {
-//            canvas.drawLine(i * mSGridWidth, 0, i * mSGridWidth, mHeight, mPaint);
-//        }
-//        //画横线
-//        for (int i = 0; i < hSNum + 1; i++) {
-//
-//            canvas.drawLine(0, i * mSGridWidth, mWidth, i * mSGridWidth, mPaint);
-//        }
-
-/*        //竖线个数
-        int vNum = (int) (mWidth / mXGridWidth + 0.5f);
-        //横线个数
-        int hNum = (int) (mHeight / mYGridWidth + 0.5f);
-
-
-        //画竖线
-        for (int i = 0; i < vNum + 1; i++) {
-            if (i != 0) {
-                mPaint.setColor(Color.parseColor("#F7F7F7"));
-                for (int mm = 1; mm <= 4; mm++) {
-                    canvas.drawLine(i * mXGridWidth - (mm / 5.0f) * mXGridWidth, 0, i * mXGridWidth - (mm / 5.0f) * mXGridWidth, mHeight, mPaint);
-                }
-            }
-
-
-        }
-        //画横线
-        for (int i = 0; i < hNum + 1; i++) {
-            if (i != 0) {
-                mPaint.setColor(Color.parseColor("#F7F7F7"));
-                for (int mm = 1; mm <= 4; mm++) {
-                    canvas.drawLine(0, i * mYGridWidth - (mm / 5.0f) * mXGridWidth, mWidth, i * mYGridWidth - (mm / 5.0f) * mXGridWidth, mPaint);
-                }
-            }
-            mPaint.setColor(mGridColor);
-            canvas.drawLine(0, i * mYGridWidth, mWidth, i * mYGridWidth, mPaint);
-
-        }
-
-        mPaint.setColor(mGridColor);
-        //画竖线
-        for (int i = 0; i < vNum + 1; i++) {
-            canvas.drawLine(i * mXGridWidth, 0, i * mXGridWidth, mHeight, mPaint);
-
-        }
-
-
-        //画左上角标签
-
-
-        ArrayList<Integer> leads = new ArrayList<>();
-        leads.addAll(maps.keySet());
-        for (int i = 0; i < leads.size(); i++) {
-            if (i == 0) {
-                drawTag(canvas, 0, leads.get(i));
-            } else {
-//                drawTag(canvas, getBaseLineHeight(leads.get(i - 1)), leads.get(i));
-            }
-        }*/
 
     }
 
@@ -588,31 +487,6 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
             dis = 700;
 
         }
-/*
-        if (enhance == 2.5f) {
-            x = 1.5f;
-        } else if (enhance == 5.0f) {
-            x = 1.5f;
-
-        } else if (enhance == 10.0f) {
-            x = 1.5f;
-
-        } else if (enhance == 20.0f) {
-            x = 3f;
-
-        } else if (enhance == 40.0f) {
-            x = 6f;
-
-        }
-*/
-
-      /*  if (key == 7) {
-            return waveHeight + dis;
-        } else if (key == 6) {
-            return waveHeight / 2;
-        } else {
-            return (position + 1) * (waveHeight / 2) + position * waveMargin * x;
-        }*/
 
         if (key == 0) {
             return mHeight / 2;
@@ -636,8 +510,6 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
             return mHeight / 12 * 11;
         }
         return mHeight / 2;
-//        return (position + 1) * (waveHeight / 2) + position * waveMargin * x;
-//        return (position + 1) * (waveHeight / 2) + position * waveMargin + (position) * enhance * x;
     }
 
     private int findLocation(int key) {
@@ -668,8 +540,6 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
 
             int key = bean.type;
 
-//            Log.d("yyy", yPixelPerMm+":notifyData: "+bean.value+":"+enhance);
-//            float value = -((bean.value) /110.0f* yPixelPerMm * enhance*2 );
             float value = -((bean.value) * yPixelPerMm * enhance * zoom*0.2f*0.25f);
 
             if (tempType != key) {
@@ -696,17 +566,8 @@ public class EcgSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                 index = 0;
             }
         }
-
-        /*if(maps.size()==3){
-            dis=600;
-        }
-        if(maps.size()==4){
-            dis=500;
-        }
-        if(maps.size()==5){
-            dis=500;
-        }*/
         mIsDrawing = true;
     }
 
 }
+
