@@ -1,6 +1,5 @@
 package idris.com.yiling_plugin.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -85,7 +84,6 @@ public class ShowXinDianActivity extends AppCompatActivity {
         StatusBarCompat.translucentStatusBar(this);
     }
 
-    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

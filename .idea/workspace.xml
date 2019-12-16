@@ -7,11 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a092b9d-c394-4470-8f43-29a910d9af16" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/libs/armeabi/libflutter.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/libs/armeabi/libnative-lib.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/armeabi/libflutter.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/armeabi/libnative-lib.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/armeabi/libnative-lib.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/armeabi/libnative-lib.so" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -63,7 +59,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1150">
+            <state relative-caret-position="1104">
               <caret line="50" column="76" selection-start-line="50" selection-start-column="76" selection-end-line="50" selection-end-column="76" />
             </state>
           </provider>
@@ -530,7 +526,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576216100545</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="dukeduke">
+      <created>1576478702543</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1576478702543</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -697,7 +700,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1150">
+        <state relative-caret-position="1104">
           <caret line="50" column="76" selection-start-line="50" selection-start-column="76" selection-end-line="50" selection-end-column="76" />
         </state>
       </provider>
